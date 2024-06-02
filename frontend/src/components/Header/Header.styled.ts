@@ -4,7 +4,13 @@ export const StyledHeader = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70px;
+    height: var(--header-height);
     border-bottom: 1px solid var(--default-border-color);
-    border-radius: var(--default-border-radius);
+    border-radius: 0 0 var(--default-border-radius) var(--default-border-radius);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 999;
 `;

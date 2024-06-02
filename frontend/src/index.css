@@ -2,7 +2,12 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   --default-border-color: lightgrey;
   --default-border-radius: 15px;
+  --header-height: 70px;
 
+}
+
+body {
+  background-color: #f3f3f3;
 }
 
 /* Custom CSS Reset */

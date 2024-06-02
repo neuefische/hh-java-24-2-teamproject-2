@@ -6,6 +6,7 @@ export const StyledArticle = styled.article`
     padding: .7rem;
     border: 1px solid var(--default-border-color);
     border-radius: var(--default-border-radius);
+    background-color: white;
 `;
 
 export const StyledImageContainer = styled.div`
