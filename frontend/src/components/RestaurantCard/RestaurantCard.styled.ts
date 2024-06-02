@@ -4,8 +4,8 @@ export const StyledArticle = styled.article`
     display: flex;
     gap: 10px;
     padding: .7rem;
-    border: 1px solid lightgray;
-    border-radius: 10px;
+    border: 1px solid var(--default-border-color);
+    border-radius: var(--default-border-radius);
 `;
 
 export const StyledImageContainer = styled.div`
@@ -13,7 +13,7 @@ export const StyledImageContainer = styled.div`
 `;
 
 export const StyledFallbackImage = styled.img`
-    border-radius: 10px;
+    border-radius: var(--default-border-radius);
     filter: blur(2px);
 `;
 

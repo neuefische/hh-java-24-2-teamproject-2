@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RestaurantControllerIntegrationTest {
+class RestaurantControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;

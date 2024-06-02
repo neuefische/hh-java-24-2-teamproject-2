@@ -6,8 +6,8 @@ const StyledHeader = styled.header`
     justify-content: center;
     align-items: center;
     height: 70px;
-    border-bottom: 1px solid lightgray;
-    border-radius: 10px;
+    border-bottom: 1px solid var(--default-border-color);
+    border-radius: var(--default-border-radius);
 `;
 
 export default function Header() {

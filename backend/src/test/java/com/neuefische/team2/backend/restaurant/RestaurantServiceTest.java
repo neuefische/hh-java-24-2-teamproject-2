@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-public class RestaurantServiceTest {
+class RestaurantServiceTest {
 
     private final RestaurantRepository mockRestaurantRepository = mock(RestaurantRepository.class);
     private final RestaurantService restaurantService = new RestaurantService(mockRestaurantRepository);
