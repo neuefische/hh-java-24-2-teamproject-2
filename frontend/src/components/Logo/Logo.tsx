@@ -1,10 +1,4 @@
-import styled from "styled-components";
-
-const StyledLogo = styled.span`
-    font-size: 2rem;
-    font-weight: lighter;
-    font-stretch: expanded;
-`;
+import {StyledLogo} from "./Logo.styled.ts";
 
 export default function Logo() {
     return (
