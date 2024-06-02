@@ -11,8 +11,8 @@ export default function RestaurantCardList({restaurants}: RestaurantCardListProp
         <StyledUnorderedList>
             {restaurants.map(restaurant => {
                 return (
-                    <li>
-                        <RestaurantCard key={restaurant.id} restaurant={restaurant}/>
+                    <li key={restaurant.id}>
+                        <RestaurantCard restaurant={restaurant}/>
                     </li>
                 )
             })}
