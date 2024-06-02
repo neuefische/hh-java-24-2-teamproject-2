@@ -1,4 +1,5 @@
 import {StyledDetailContainer} from "./RestaurantCardDetail.styled.ts";
+import React from "react";
 
 type RestaurantCardDetailProps = {
     icon: React.ReactElement,
