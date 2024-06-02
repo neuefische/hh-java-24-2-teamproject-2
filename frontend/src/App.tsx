@@ -1,12 +1,10 @@
-import {restaurants} from "./data/restaurantData.ts";
-import RestaurantCardList from "./components/RestaurantCardList/RestaurantCardList.tsx";
+import RestaurantsPage from "./pages/RestaurantsPage.tsx";
 
 function App() {
 
     return (
         <>
-            <h1>Restaurants</h1>
-            <RestaurantCardList restaurants={restaurants} />
+            <RestaurantsPage />
         </>
     )
 }
