@@ -1,9 +1,13 @@
-import RestaurantCard from "./components/RestaurantCard/RestaurantCard.tsx";
+import {restaurants} from "./data/restaurantData.ts";
+import RestaurantCardList from "./components/RestaurantCardList/RestaurantCardList.tsx";
 
 function App() {
 
     return (
-        <RestaurantCard restaurant={{id: "1", title: "Dönerbude", city:"Berlin"}}/>
+        <>
+            <h1>Restaurants</h1>
+            <RestaurantCardList restaurants={restaurants} />
+        </>
     )
 }
 
