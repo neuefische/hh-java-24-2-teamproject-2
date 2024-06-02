@@ -1,4 +1,4 @@
-name: Build Frontend
+name: SonarCloud Frontend
 on:
   push:
   pull_request:
