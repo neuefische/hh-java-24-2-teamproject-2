@@ -1,5 +1,7 @@
 package com.neuefische.team2.backend.restaurant;
 
+import com.neuefische.team2.backend.exceptions.ResourceNotFoundException;
+import com.neuefische.team2.backend.restaurant.domain.NewRestaurantDTO;
 import com.neuefische.team2.backend.exceptions.NoSuchRestaurantException;
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
 import org.junit.jupiter.api.Test;
@@ -30,7 +32,7 @@ class RestaurantServiceTest {
     }
 
     @Test
-    void getRestaurants_whenOneRestaurantInDB_thenReturnListOfOne() {
+    void getRestaurants_whenOneRestaurantsInDB_thenReturnListOfOne() {
         //GIVEN
         Restaurant restaurant = new Restaurant("1", "The Mockingbird", "New York");
         when(mockRestaurantRepository.findAll()).thenReturn(Collections.singletonList(restaurant));
@@ -42,6 +44,41 @@ class RestaurantServiceTest {
         verify(mockRestaurantRepository).findAll();
         List<Restaurant> expected = List.of(restaurant);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void updateRestaurant_whenRestaurantExists_thenUpdateAndReturnRestaurant() {
+        //GIVEN
+        Restaurant existingRestaurant = new Restaurant("1", "Old Name", "Old City");
+        NewRestaurantDTO updatedRestaurantData = new NewRestaurantDTO("New Name", "New City");
+        Restaurant updatedRestaurant = new Restaurant("1", "New Name", "New City");
+
+        when(mockRestaurantRepository.findById("1")).thenReturn(Optional.of(existingRestaurant));
+        when(mockRestaurantRepository.save(any(Restaurant.class))).thenReturn(updatedRestaurant);
+
+        // WHEN
+        Restaurant actual = restaurantService.updateRestaurant(updatedRestaurantData, "1");
+
+        //THEN
+        verify(mockRestaurantRepository).findById("1");
+        verify(mockRestaurantRepository).save(any(Restaurant.class));
+        assertEquals(updatedRestaurant, actual);
+    }
+
+    @Test
+    void updateRestaurant_whenRestaurantDoesNotExist_thenThrowResourceNotFoundException() {
+        //GIVEN
+        NewRestaurantDTO updatedRestaurantData = new NewRestaurantDTO("New Name", "New City");
+
+        when(mockRestaurantRepository.findById("1")).thenReturn(Optional.empty());
+
+        // WHEN / THEN
+        assertThrows(ResourceNotFoundException.class, () -> {
+            restaurantService.updateRestaurant(updatedRestaurantData, "1");
+        });
+
+        verify(mockRestaurantRepository).findById("1");
+        verify(mockRestaurantRepository, never()).save(any(Restaurant.class));
     }
     @Test
     void findRestaurantById_whenRestaurantExists_thenReturnRestaurant() {
