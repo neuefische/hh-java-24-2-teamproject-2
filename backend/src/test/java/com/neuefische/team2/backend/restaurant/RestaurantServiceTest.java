@@ -120,4 +120,16 @@ class RestaurantServiceTest {
         verify(mockRestaurantRepository).save(restaurantToSave);
         assertEquals(savedRestaurant, actual);
     }
+
+    @Test
+    void deleteRestaurant_whenMethodCalled_thenDeleteMethodOnRepositoryWasCalledOnlyOnce() {
+        //GIVEN
+        String id = "123";
+
+        //WHEN
+        restaurantService.deleteRestaurant(id);
+
+        //THEN
+        verify(mockRestaurantRepository, times(1)).deleteById(id);
+    }
 }
