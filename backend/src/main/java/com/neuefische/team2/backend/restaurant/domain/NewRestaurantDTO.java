@@ -4,9 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("restaurants")
-public record Restaurant(
-        String id,
-
+public record NewRestaurantDTO(
         @NotBlank(message = "Restaurant-Titel muss vorhanden sein.")
         String title,
 
