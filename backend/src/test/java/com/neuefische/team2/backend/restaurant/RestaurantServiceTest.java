@@ -44,7 +44,7 @@ class RestaurantServiceTest {
     }
 
     @Test
-    void addRestaurant_whenRestaurantDTO_thenReturnRestaurantWithId() {
+    void addRestaurant_whenRestaurantToSave_thenReturnSavedRestaurantWithId() {
         //GIVEN
         Restaurant restaurantToSave = new Restaurant(null, "The Mockingbird", "New York");
         Restaurant savedRestaurant = new Restaurant("1", "The Mockingbird", "New York");

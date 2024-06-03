@@ -2,6 +2,8 @@ package com.neuefische.team2.backend.restaurant;
 
 import com.neuefische.team2.backend.restaurant.domain.NewRestaurantDTO;
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +19,14 @@ public class RestaurantController {
     }
 
     @GetMapping
-    List<Restaurant> getRestaurants() {
+    public List<Restaurant> getRestaurants() {
         return restaurantService.getRestaurants();
     }
 
     @PostMapping
-    Restaurant addRestaurant(@RequestBody NewRestaurantDTO newRestaurantDTO) {
-        Restaurant restaurant = new Restaurant(null, newRestaurantDTO.title(), newRestaurantDTO.title());
-        return restaurantService.addRestaurant(restaurant);
+    public ResponseEntity<Restaurant> addRestaurant(@RequestBody NewRestaurantDTO newRestaurantDTO) {
+        Restaurant restaurant = new Restaurant(null, newRestaurantDTO.title(), newRestaurantDTO.city());
+        Restaurant savedRestaurant = restaurantService.addRestaurant(restaurant);
+        return new ResponseEntity<>(savedRestaurant, HttpStatus.CREATED);
     }
 }
