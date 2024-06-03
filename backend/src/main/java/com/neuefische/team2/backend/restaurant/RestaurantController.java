@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -43,5 +44,10 @@ public class RestaurantController {
     @PutMapping("{id}")
     Restaurant putRestaurant(@Valid @RequestBody NewRestaurantDTO newRestaurantDTO, @PathVariable String id) throws ResourceNotFoundException {
         return restaurantService.updateRestaurant(newRestaurantDTO, id);
+    }
+
+    @DeleteMapping("{id}")
+    void deleteRestaurant(@PathVariable String id) {
+        restaurantService.deleteRestaurant(id);
     }
 }
