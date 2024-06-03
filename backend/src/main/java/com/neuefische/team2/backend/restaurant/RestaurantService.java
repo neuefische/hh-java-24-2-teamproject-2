@@ -57,5 +57,7 @@ public class RestaurantService {
         return savedRestaurant;
     }
 
-
+    public void deleteRestaurant(String id) {
+        restaurantRepository.deleteById(id);
+    }
 }
