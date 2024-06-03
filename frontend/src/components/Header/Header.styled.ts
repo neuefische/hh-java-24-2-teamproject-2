@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 export const StyledHeader = styled.header`
     display: flex;
@@ -15,3 +16,8 @@ export const StyledHeader = styled.header`
     background-color: white;
     z-index: 999;
 `;
+
+export const StyledLink = styled(Link)`
+        color: inherit;
+        text-decoration: none;
+    `;
