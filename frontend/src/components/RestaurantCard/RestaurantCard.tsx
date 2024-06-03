@@ -1,4 +1,5 @@
 import {RestaurantType} from "../../model/Restaurant.ts";
+import { useNavigate } from "react-router-dom";
 import {FaLocationDot} from "react-icons/fa6";
 import RestaurantCardDetail from "../RestaurantCardDetail/RestaurantCardDetail.tsx";
 import {
@@ -6,7 +7,8 @@ import {
     StyledDetailsContainer,
     StyledDetailsTitle,
     StyledFallbackImage,
-    StyledImageContainer
+    StyledImageContainer,
+    StyledDetailsButton
 } from "./RestaurantCard.styled.ts";
 
 type RestaurantCardProps = {
@@ -14,6 +16,14 @@ type RestaurantCardProps = {
 }
 
 export default function RestaurantCard({restaurant}: RestaurantCardProps) {
+    const navigate = useNavigate();
+
+    const handleDetailsClick = () => {
+        navigate(`/restaurants/${restaurant.id}`);
+    };
+
+
+
     return (
         <StyledArticle>
             <StyledImageContainer>
@@ -23,6 +33,7 @@ export default function RestaurantCard({restaurant}: RestaurantCardProps) {
             <StyledDetailsContainer>
                 <StyledDetailsTitle>{restaurant.title}</StyledDetailsTitle>
                 <RestaurantCardDetail icon={<FaLocationDot/>} value={restaurant.city}/>
+                <StyledDetailsButton onClick={handleDetailsClick}>Details</StyledDetailsButton>
             </StyledDetailsContainer>
         </StyledArticle>
     )

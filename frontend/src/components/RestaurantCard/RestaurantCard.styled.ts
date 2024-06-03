@@ -25,3 +25,21 @@ export const StyledDetailsContainer = styled.div`
 export const StyledDetailsTitle = styled.h2`
     margin-bottom: 5px;
 `;
+
+export const StyledDetailsButton = styled.button`
+  background-color: #6200ea;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    background-color: #3700b3;
+  }
+
+  &:active {
+    background-color: #03dac5;
+  }
+`;
