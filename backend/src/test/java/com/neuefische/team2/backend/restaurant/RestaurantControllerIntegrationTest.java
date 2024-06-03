@@ -57,7 +57,6 @@ class RestaurantControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].id").value(restaurant.id()));
     }
 
-
     @DirtiesContext
     @Test
     void addRestaurant_whenNewRestaurantDTO_thenReturnSavedRestaurantWithId() throws Exception {
@@ -77,5 +76,109 @@ class RestaurantControllerIntegrationTest {
                         }
                         """))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+    }
+
+    @DirtiesContext
+    @Test
+    void addRestaurant_whenTitleEmptyString_thenReturnException() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "title": "",
+                                    "city": "New York"
+                                }
+                                """))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                            "errors": [
+                                {
+                                    "field": "title",
+                                    "message": "Title must not be empty"
+                                }
+                            ]
+                        }
+                        """));
+    }
+
+    @DirtiesContext
+    @Test
+    void addRestaurant_whenCityEmptyString_thenReturnException() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "title": "The Mockingbird",
+                                    "city": ""
+                                }
+                                """))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                            "errors": [
+                                {
+                                    "field": "city",
+                                    "message": "City must not be empty"
+                                }
+                            ]
+                        }
+                        """));
+    }
+
+    @DirtiesContext
+    @Test
+    void addRestaurant_whenTitleAndCityEmptyString_thenReturnException() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "title": "",
+                                    "city": ""
+                                }
+                                """))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                            "errors": [
+                                {
+                                    "field": "city",
+                                    "message": "City must not be empty"
+                                },
+                                {
+                                    "field": "title",
+                                    "message": "Title must not be empty"
+                                }
+                            ]
+                        }
+                        """));
+    }
+
+    @DirtiesContext
+    @Test
+    void addRestaurant_whenTitleAndCityContainOnlySpaces_thenReturnException() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "title": "   ",
+                                    "city": "      "
+                                }
+                                """))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                            "errors": [
+                                {
+                                    "field": "city",
+                                    "message": "City must not be empty"
+                                },
+                                {
+                                    "field": "title",
+                                    "message": "Title must not be empty"
+                                }
+                            ]
+                        }
+                        """));
     }
 }
