@@ -17,7 +17,7 @@ class RestaurantControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    void getAllProducts_whenProductInDB_thenReturnEmptyList() throws Exception {
+    void getAllProducts_whenNoProductInDB_thenReturnEmptyList() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("[]"));
