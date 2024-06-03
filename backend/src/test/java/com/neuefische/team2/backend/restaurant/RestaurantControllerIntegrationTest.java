@@ -28,6 +28,7 @@ class RestaurantControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.content().json("[]"));
     }
 
+    @DirtiesContext
     @Test
     void getAllProducts_whenOneProductInDB_thenReturnListOfOne() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
