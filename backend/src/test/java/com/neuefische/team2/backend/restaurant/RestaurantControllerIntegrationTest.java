@@ -187,6 +187,7 @@ class RestaurantControllerIntegrationTest {
                         }
                         """));
     }
+
     @Test
     void getRestaurantById_whenRestaurantExists_thenReturnRestaurant() throws Exception {
         //GIVEN
@@ -222,11 +223,6 @@ class RestaurantControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.content().string("Restaurant with id 999 not found"));
     }
 
-
-
-    // TODO: Write a test to receive one restaurant as soon as POST endpoint is implemented.
-
-
     @Test
     void updateRestaurant_whenRestaurantExists_thenReturnUpdatedRestaurant() throws Exception {
         // Arrange: Add a restaurant to the DB
@@ -257,5 +253,59 @@ class RestaurantControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedRestaurant)))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    void deleteRestaurant_whenNoRestaurantInDB_thenDBStaysEmpty() throws Exception {
+        //GIVEN
+        String id = "123";
+
+        //WHEN
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/restaurants/" + id))
+                //THEN
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(""));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("[]"));
+    }
+
+    @Test
+    @DirtiesContext
+    void deleteRestaurant_whenRestaurantInDB_thenDBDoesNotContainRestaurantAnymore() throws Exception {
+        //GIVEN
+        MvcResult resultRestaurantToDelete = mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""                        
+                            {
+                              "title": "test-title-to-remove",
+                              "city": "test-city"
+                            }
+                        """)).andReturn();
+
+        MvcResult resultRestaurantToKeep = mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""                        
+                            {
+                              "title": "test-title",
+                              "city": "test-city"
+                            }
+                        """)).andReturn();
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        String idToDelete = mapper.readValue(resultRestaurantToDelete.getResponse().getContentAsString(), Restaurant.class).id();
+
+        //WHEN
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/restaurants/" + idToDelete));
+
+        //THEN
+        Restaurant expected = mapper.readValue(resultRestaurantToKeep.getResponse().getContentAsString(), Restaurant.class);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$..id").value(expected.id()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$..title").value(expected.title()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$..city").value(expected.city()));
     }
 }
