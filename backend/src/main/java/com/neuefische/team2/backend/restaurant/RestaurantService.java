@@ -22,4 +22,8 @@ public class RestaurantService {
     public Restaurant findRestaurantById(String id) {
         return restaurantRepository.findById(id).orElseThrow();
     }
+
+    public Restaurant addRestaurant(Restaurant restaurant) {
+        return restaurantRepository.save(restaurant);
+    }
 }

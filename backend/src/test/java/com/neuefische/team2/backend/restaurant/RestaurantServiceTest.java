@@ -30,7 +30,7 @@ class RestaurantServiceTest {
     }
 
     @Test
-    void getRestaurants_whenOneRestaurantsInDB_thenReturnListOfOne() {
+    void getRestaurants_whenOneRestaurantInDB_thenReturnListOfOne() {
         //GIVEN
         Restaurant restaurant = new Restaurant("1", "The Mockingbird", "New York");
         when(mockRestaurantRepository.findAll()).thenReturn(Collections.singletonList(restaurant));
@@ -69,4 +69,19 @@ class RestaurantServiceTest {
         verify(mockRestaurantRepository).findById("1");
     }
 
+
+    @Test
+    void addRestaurant_whenRestaurantToSave_thenReturnSavedRestaurantWithId() {
+        //GIVEN
+        Restaurant restaurantToSave = new Restaurant(null, "The Mockingbird", "New York");
+        Restaurant savedRestaurant = new Restaurant("1", "The Mockingbird", "New York");
+        when(mockRestaurantRepository.save(restaurantToSave)).thenReturn(savedRestaurant);
+
+        //WHEN
+        Restaurant actual = restaurantService.addRestaurant(restaurantToSave);
+
+        //THEN
+        verify(mockRestaurantRepository).save(restaurantToSave);
+        assertEquals(savedRestaurant, actual);
+    }
 }
