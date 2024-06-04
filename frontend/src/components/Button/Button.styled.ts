@@ -5,17 +5,17 @@ export const StyledLink = styled(Link)`
     display: inline-block;
     padding: 10px 20px;
     color: white;
-    background-color: #6200ea;
+    background-color: var(--primary-color);
     text-decoration: none;    
     border: none;
     border-radius: 5px;
     cursor: pointer;
     
     &:hover {
-        background-color: #3700b3;
+        background-color: color-mix(in srgb, var(--primary-color) 80%, white);
     }
 
     &:active {
-        background-color: #03dac5;
+        background-color: color-mix(in srgb, var(--primary-color) 70%, black);
     }
 `;
