@@ -3,10 +3,7 @@ package com.neuefische.team2.backend.restaurant;
 import com.neuefische.team2.backend.exceptions.NoSuchRestaurantException;
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class RestaurantService {
