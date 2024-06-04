@@ -3,11 +3,13 @@
   --default-border-color: lightgrey;
   --default-border-radius: 15px;
   --header-height: 70px;
+  --default-color: #333333
 
 }
 
 body {
   background-color: #f3f3f3;
+  color: var(--default-color);
 }
 
 /* Custom CSS Reset */

@@ -3,3 +3,8 @@ export type RestaurantType = {
     title: string,
     city: string,
 }
+
+export type NewRestaurantDTOType = {
+    title: string,
+    city: string,
+}
