@@ -50,6 +50,7 @@ export default function RestaurantForm() {
                     <StyledInputField
                         id="title"
                         name="title"
+                        type="text"
                         onChange={handleUserInput}
                         value={formData.title}
                         required
@@ -61,6 +62,7 @@ export default function RestaurantForm() {
                     <StyledInputField
                         id="city"
                         name="city"
+                        type="text"
                         onChange={handleUserInput}
                         value={formData.city}
                         required
