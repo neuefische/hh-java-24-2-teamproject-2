@@ -55,7 +55,7 @@ export default function RestaurantForm() {
                         value={formData.title}
                         required
                     />
-                    <StyledFieldError>{fieldValidation.title ? fieldValidation.title : undefined}</StyledFieldError>
+                    <StyledFieldError>{fieldValidation.title}</StyledFieldError>
                 </StyledFormRow>
                 <StyledFormRow>
                     <label htmlFor="city">City</label>
