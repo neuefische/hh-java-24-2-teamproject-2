@@ -1,5 +1,6 @@
 package com.neuefische.team2.backend.restaurant;
 
+import com.neuefische.team2.backend.exceptions.NoSuchRestaurantException;
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
 import org.junit.jupiter.api.Test;
 
@@ -64,7 +65,7 @@ class RestaurantServiceTest {
         when(mockRestaurantRepository.findById("1")).thenReturn(Optional.empty());
 
         //THEN
-        assertThrowsExactly(NoSuchElementException.class, () -> restaurantService.findRestaurantById("1"));
+        assertThrowsExactly(NoSuchRestaurantException.class, () -> restaurantService.findRestaurantById("1"));
 
         verify(mockRestaurantRepository).findById("1");
     }

@@ -212,5 +212,4 @@ class RestaurantControllerIntegrationTest {
 
 
 
-    // TODO: Write a test to receive one restaurant as soon as POST endpoint is implemented.
 }
