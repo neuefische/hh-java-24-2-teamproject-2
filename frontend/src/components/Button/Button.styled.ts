@@ -2,14 +2,14 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 
 export const StyledLink = styled(Link)`
-    background-color: #6200ea;
-    color: white;
+    display: inline-block;
     padding: 10px 20px;
+    color: white;
+    background-color: #6200ea;
+    text-decoration: none;    
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;    
     
     &:hover {
         background-color: #3700b3;

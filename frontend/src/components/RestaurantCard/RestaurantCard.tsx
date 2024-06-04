@@ -25,7 +25,7 @@ export default function RestaurantCard({restaurant}: RestaurantCardProps) {
             <StyledDetailsContainer>
                 <StyledDetailsTitle>{restaurant.title}</StyledDetailsTitle>
                 <RestaurantCardDetail icon={<FaLocationDot/>} value={restaurant.city}/>
-                <Button href={`/restaurants/${restaurant.id}`}>Details2</Button>
+                <Button href={`/restaurants/${restaurant.id}`}>Details</Button>
             </StyledDetailsContainer>
         </StyledArticle>
     )
