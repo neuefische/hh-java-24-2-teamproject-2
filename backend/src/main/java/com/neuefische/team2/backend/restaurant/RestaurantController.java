@@ -1,9 +1,10 @@
 package com.neuefische.team2.backend.restaurant;
 
+import com.neuefische.team2.backend.restaurant.domain.NewRestaurantDTO;
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +19,14 @@ public class RestaurantController {
     }
 
     @GetMapping
-    List<Restaurant> getRestaurants() {
+    public List<Restaurant> getRestaurants() {
         return restaurantService.getRestaurants();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Restaurant addRestaurant(@RequestBody @Valid NewRestaurantDTO newRestaurantDTO) {
+        Restaurant restaurant = new Restaurant(null, newRestaurantDTO.title(), newRestaurantDTO.city());
+        return restaurantService.addRestaurant(restaurant);
     }
 }

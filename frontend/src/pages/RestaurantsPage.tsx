@@ -18,7 +18,7 @@ export default function RestaurantsPage() {
     }, []);
 
     return (
-        <DefaultPageTemplate pageTitle={"Restaurants"}>
+        <DefaultPageTemplate pageTitle="Restaurants">
             <RestaurantCardList restaurants={restaurants}/>
         </DefaultPageTemplate>
     )
