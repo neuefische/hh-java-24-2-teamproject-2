@@ -9,8 +9,8 @@ export const StyledLink = styled(Link)`
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    text-decoration: none;
-
+    text-decoration: none;    
+    
     &:hover {
         background-color: #3700b3;
     }

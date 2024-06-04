@@ -39,9 +39,7 @@ export default function RestaurantDetails() {
             <br/>
             <h1>weitere Details 2</h1>
             <br/>
-            <Button href="/">
-                BACK
-            </Button>
+            <Button href="/">Back</Button>
         </div>
     );
 }
