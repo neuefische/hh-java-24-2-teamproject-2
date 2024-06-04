@@ -36,13 +36,13 @@ class RestaurantControllerIntegrationTest {
                 //THEN
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
-                        [
+                        
                             {
                               "id": "1",
                               "title": "The Mockingbird",
                               "city": "New York"
                             }
-                        ]
+                        
                         """));
     }
 

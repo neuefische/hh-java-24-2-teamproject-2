@@ -19,7 +19,7 @@ public class RestaurantService {
         return restaurantRepository.findAll();
     }
 
-    public Optional<Restaurant> findRestaurantById(String id) {
-        return restaurantRepository.findById(id);
+    public Restaurant findRestaurantById(String id) {
+        return restaurantRepository.findById(id).orElseThrow();
     }
 }

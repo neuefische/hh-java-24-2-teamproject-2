@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import axios from "axios";
 import { RestaurantType } from "../../model/Restaurant.ts";
-import {StyledDetailsButton} from "../RestaurantCard/RestaurantCard.styled.ts";
+
+import Button from "../Button/Button.tsx";
 
 export default function RestaurantDetails() {
     const { id } = useParams<{ id: string }>();
     const [restaurant, setRestaurant] = useState<RestaurantType>();
     const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`/api/restaurants/${id}`)
@@ -29,22 +29,19 @@ export default function RestaurantDetails() {
         return <div>Loading...</div>;
     }
 
-    const handleDetailsClick = () => {
-        navigate(`/`);
-    };
-
     return (
         <div>
             <h1>{restaurant.title}</h1>
+            <br/>
             <p>{restaurant.city}</p>
-
-            <h1>sdofihsdijfpsdjf</h1>
             <br/>
-            <h1>uosijdfoisdfoihsodihfosihdf</h1>
+            <h1>weitere Details 1</h1>
             <br/>
-            <h1>hier Button um zurückzukommen auf mainpage</h1>
-            <StyledDetailsButton onClick={handleDetailsClick}>BACK</StyledDetailsButton>
-
+            <h1>weitere Details 2</h1>
+            <br/>
+            <Button href="/">
+                BACK
+            </Button>
         </div>
     );
 }

@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class RestaurantServiceTest {
@@ -50,25 +50,23 @@ class RestaurantServiceTest {
         when(mockRestaurantRepository.findById("1")).thenReturn(Optional.of(restaurant));
 
         // WHEN
-        Optional<Restaurant> actual = restaurantService.findRestaurantById("1");
+        Restaurant actual = restaurantService.findRestaurantById("1");
 
         //THEN
         verify(mockRestaurantRepository).findById("1");
-        assertTrue(actual.isPresent());
-        assertEquals(restaurant, actual.get());
+
+        assertEquals(restaurant, actual);
     }
 
     @Test
-    void findRestaurantById_whenRestaurantDoesNotExist_thenReturnEmptyOptional() {
+    void findRestaurantById_whenRestaurantDoesNotExist_thenThrowException() {
         //GIVEN
         when(mockRestaurantRepository.findById("1")).thenReturn(Optional.empty());
 
-        // WHEN
-        Optional<Restaurant> actual = restaurantService.findRestaurantById("1");
-
         //THEN
+        assertThrowsExactly(NoSuchElementException.class, () -> restaurantService.findRestaurantById("1"));
+
         verify(mockRestaurantRepository).findById("1");
-        assertEquals(Optional.empty(), actual);
     }
 
 }

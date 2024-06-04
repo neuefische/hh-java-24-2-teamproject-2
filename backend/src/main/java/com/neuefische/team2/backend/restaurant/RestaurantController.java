@@ -1,6 +1,7 @@
 package com.neuefische.team2.backend.restaurant;
 
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}")
-    Optional<Restaurant> getRestaurantById(@PathVariable String id) {
+    Restaurant getRestaurantById(@PathVariable @Valid String id) {
         return restaurantService.findRestaurantById(id);
     }
 }
