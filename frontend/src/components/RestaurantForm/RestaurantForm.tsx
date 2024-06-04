@@ -2,15 +2,33 @@ import {ChangeEvent, FormEvent, useState} from "react";
 import {NewRestaurantDTOType} from "../../model/Restaurant.ts";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {StyledForm, StyledFormBody, StyledFormRow, StyledInputField} from "./RestaurantForm.styled.ts";
+import {
+    StyledFieldError,
+    StyledForm,
+    StyledFormBody,
+    StyledFormRow,
+    StyledInputField
+} from "./RestaurantForm.styled.ts";
 
 export default function RestaurantForm() {
 
+    const initialFieldValidation = {
+        title: "",
+        city: ""
+    }
+
     const [formData, setFormData] = useState<NewRestaurantDTOType>({title: "", city: ""});
+    const [fieldValidation, setFieldValidation] = useState<NewRestaurantDTOType>(initialFieldValidation);
     const navigate = useNavigate();
 
     function handleUserInput(event: ChangeEvent<HTMLInputElement>) {
         setFormData({...formData, [event.target.name]: event.target.value});
+
+        if (event.target.value.trim() === "") {
+            setFieldValidation({...fieldValidation, [event.target.name]: "Field is required"});
+        } else if (event.target.value.trim() !== "") {
+            setFieldValidation({...fieldValidation, [event.target.name]: ""});
+        }
     }
 
     function handleAddRestaurant(event: FormEvent<HTMLFormElement>) {
@@ -36,6 +54,7 @@ export default function RestaurantForm() {
                         value={formData.title}
                         required
                     />
+                    <StyledFieldError>{fieldValidation.title ? fieldValidation.title : undefined}</StyledFieldError>
                 </StyledFormRow>
                 <StyledFormRow>
                     <label htmlFor="city">City</label>
@@ -46,6 +65,7 @@ export default function RestaurantForm() {
                         value={formData.city}
                         required
                     />
+                    <StyledFieldError>{fieldValidation.city}</StyledFieldError>
                 </StyledFormRow>
             </StyledFormBody>
             <button type="submit">Add</button>
