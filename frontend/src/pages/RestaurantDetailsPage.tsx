@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams} from "react-router-dom";
+import DefaultPageTemplate from "./templates/DefaultPageTemplate/DefaultPageTemplate.tsx";
 import axios from "axios";
-import { RestaurantType } from "../../model/Restaurant.ts";
+import { RestaurantType } from "../model/Restaurant.ts";
 
-import Button from "../Button/Button.tsx";
+import Button from "../components/Button/Button.tsx";
 
-export default function RestaurantDetails() {
+export default function RestaurantDetailsPage() {
     const { id } = useParams<{ id: string }>();
     const [restaurant, setRestaurant] = useState<RestaurantType>();
     const [error, setError] = useState<string | null>(null);
@@ -22,24 +23,17 @@ export default function RestaurantDetails() {
     }, [id]);
 
     if (error) {
-        return <div>{error}</div>;
+        return <DefaultPageTemplate>{error}</DefaultPageTemplate>;
     }
 
     if (!restaurant) {
-        return <div>Loading...</div>;
+        return <DefaultPageTemplate>Loading...</DefaultPageTemplate>;
     }
 
     return (
-        <div>
-            <h1>{restaurant.title}</h1>
-            <br/>
+        <DefaultPageTemplate pageTitle={restaurant.title}>
             <p>{restaurant.city}</p>
-            <br/>
-            <h1>weitere Details 1</h1>
-            <br/>
-            <h1>weitere Details 2</h1>
-            <br/>
             <Button href="/">Back</Button>
-        </div>
+        </DefaultPageTemplate>
     );
 }
