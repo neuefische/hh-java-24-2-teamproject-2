@@ -1,4 +1,4 @@
-import RestaurantsPage from "./pages/RestaurantsPage.tsx";
+import RestaurantsPage from "./pages/RestaurantsPage/RestaurantsPage.tsx";
 import RestaurantDetailsPage from "./pages/RestaurantDetailsPage.tsx";
 import {Route, Routes} from "react-router-dom";
 import AddRestaurantsPage from "./pages/AddRestaurantsPage.tsx";
