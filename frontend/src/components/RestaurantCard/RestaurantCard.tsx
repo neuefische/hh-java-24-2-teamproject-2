@@ -6,14 +6,16 @@ import {
     StyledDetailsContainer,
     StyledDetailsTitle,
     StyledFallbackImage,
-    StyledImageContainer
+    StyledImageContainer,
 } from "./RestaurantCard.styled.ts";
+import Button from "../Button/Button.tsx";
 
 type RestaurantCardProps = {
     restaurant: RestaurantType,
 }
 
 export default function RestaurantCard({restaurant}: RestaurantCardProps) {
+
     return (
         <StyledArticle>
             <StyledImageContainer>
@@ -23,6 +25,7 @@ export default function RestaurantCard({restaurant}: RestaurantCardProps) {
             <StyledDetailsContainer>
                 <StyledDetailsTitle>{restaurant.title}</StyledDetailsTitle>
                 <RestaurantCardDetail icon={<FaLocationDot/>} value={restaurant.city}/>
+                <Button href={`/restaurants/${restaurant.id}`}>Details</Button>
             </StyledDetailsContainer>
         </StyledArticle>
     )

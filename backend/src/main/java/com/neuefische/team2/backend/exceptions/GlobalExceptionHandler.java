@@ -25,4 +25,11 @@ public class GlobalExceptionHandler {
 
         return new ExceptionResponse(errors);
     }
+
+    @ExceptionHandler(NoSuchRestaurantException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleNoSuchRestaurantException(NoSuchRestaurantException exception) {
+
+        return exception.getMessage();
+    }
 }

@@ -181,4 +181,41 @@ class RestaurantControllerIntegrationTest {
                         }
                         """));
     }
+    @Test
+    void getRestaurantById_whenRestaurantExists_thenReturnRestaurant() throws Exception {
+        //GIVEN
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
+                    .contentType(MediaType.APPLICATION_JSON)
+                        .content("""                        
+                            {
+                              "title": "The Mockingbird",
+                              "city": "New York"
+                            }
+                        """)).andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        Restaurant restaurant = mapper.readValue(result.getResponse().getContentAsString(), Restaurant.class);
+
+        //WHEN
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants/" + restaurant.id()))
+                //THEN
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                              "title": "The Mockingbird",
+                              "city": "New York"
+                            }
+                        """))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(restaurant.id()));
+    }
+
+    @Test
+    void getRestaurantById_whenRestaurantDoesNotExist_thenReturnNotFound() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants/999"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().string("Restaurant with id 999 not found"));
+    }
+
+
+
 }

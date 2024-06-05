@@ -3,8 +3,8 @@
     --default-border-color: lightgrey;
     --default-border-radius: 15px;
     --header-height: 70px;
-    --default-color: #333333
-
+    --default-color: #333333;
+    --primary-color: #6200ea;
 }
 
 body {

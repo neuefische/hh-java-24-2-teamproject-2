@@ -25,3 +25,4 @@ export const StyledDetailsContainer = styled.div`
 export const StyledDetailsTitle = styled.h2`
     margin-bottom: 5px;
 `;
+
