@@ -2,9 +2,9 @@ import DefaultPageTemplate from "./templates/DefaultPageTemplate/DefaultPageTemp
 import RestaurantForm from "../components/RestaurantForm/RestaurantForm.tsx";
 
 export default function AddRestaurantsPage() {
-    return (
-        <DefaultPageTemplate pageTitle="New restaurant">
-            <RestaurantForm />
-        </DefaultPageTemplate>
-    )
+  return (
+    <DefaultPageTemplate pageTitle="New restaurant">
+      <RestaurantForm />
+    </DefaultPageTemplate>
+  );
 }

@@ -1,7 +1,5 @@
-import {StyledLogo} from "./Logo.styled.ts";
+import { StyledLogo } from "./Logo.styled.ts";
 
 export default function Logo() {
-    return (
-        <StyledLogo>RestaurantApp</StyledLogo>
-    )
+  return <StyledLogo>RestaurantApp</StyledLogo>;
 }
