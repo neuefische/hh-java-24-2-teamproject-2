@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -20,11 +21,9 @@ class RestaurantControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    RestaurantRepository restaurantRepository;
 
     @Test
-    void getAllProducts_whenProductInDB_thenReturnEmptyList() throws Exception {
+    void getAllProducts_whenNoProductInDB_thenReturnEmptyList() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("[]"));
@@ -186,28 +185,36 @@ class RestaurantControllerIntegrationTest {
     @Test
     void getRestaurantById_whenRestaurantExists_thenReturnRestaurant() throws Exception {
         //GIVEN
-        Restaurant restaurant = new Restaurant("1", "The Mockingbird", "New York");
-        restaurantRepository.save(restaurant);
-        //WHEN
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants/1"))
-                //THEN
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
-                        
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
+                    .contentType(MediaType.APPLICATION_JSON)
+                        .content("""                        
                             {
-                              "id": "1",
                               "title": "The Mockingbird",
                               "city": "New York"
                             }
-                        
-                        """));
+                        """)).andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        Restaurant restaurant = mapper.readValue(result.getResponse().getContentAsString(), Restaurant.class);
+
+        //WHEN
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants/" + restaurant.id()))
+                //THEN
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                              "title": "The Mockingbird",
+                              "city": "New York"
+                            }
+                        """))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(restaurant.id()));
     }
 
     @Test
     void getRestaurantById_whenRestaurantDoesNotExist_thenReturnNotFound() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants/999"))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().string("Restaurant with id 999 not found"));
     }
 
 

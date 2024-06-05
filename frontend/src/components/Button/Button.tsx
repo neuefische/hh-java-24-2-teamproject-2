@@ -8,10 +8,8 @@ type ButtonProps = {
 
 export default function Button({children, href}: ButtonProps) {
     return (
-        <>
-            <StyledLink to={href}>
-                {children}
-            </StyledLink>
-        </>
+        <StyledLink to={href}>
+            {children}
+        </StyledLink>
     )
 }
