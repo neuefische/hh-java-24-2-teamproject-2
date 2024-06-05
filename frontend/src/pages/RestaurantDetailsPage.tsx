@@ -33,6 +33,7 @@ export default function RestaurantDetailsPage() {
     return (
         <DefaultPageTemplate pageTitle={restaurant.title}>
             <p>{restaurant.city}</p>
+            <Button href={`/restaurants/edit/${id}`}>Edit</Button>
             <Button href="/">Back</Button>
         </DefaultPageTemplate>
     );

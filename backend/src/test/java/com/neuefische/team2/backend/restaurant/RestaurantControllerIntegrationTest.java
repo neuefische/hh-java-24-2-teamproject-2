@@ -22,6 +22,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @AutoConfigureMockMvc
 class RestaurantControllerIntegrationTest {
 
+    ObjectMapper objectMapper = new ObjectMapper();
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -232,7 +234,7 @@ class RestaurantControllerIntegrationTest {
         String responseContent = mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newRestaurant)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andReturn().getResponse().getContentAsString();
 
         Restaurant createdRestaurant = objectMapper.readValue(responseContent, Restaurant.class);
