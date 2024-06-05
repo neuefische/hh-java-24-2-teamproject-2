@@ -43,13 +43,13 @@ test('RestaurantForm component displays input field "city"', () => {
     expect(cityInput).toBeInTheDocument();
 });
 
-test('RestaurantForm component displays "add" button', () => {
+test('RestaurantForm component displays "save" button', () => {
     render(
         <MemoryRouter>
             <RestaurantForm  onSubmit={jest.fn()} restaurantData={null}/>
         </MemoryRouter>);
     const addButton = screen.getByRole("button", {
-        name: /add/i
+        name: /save/i
     });
     expect(addButton).toBeInTheDocument();
 });

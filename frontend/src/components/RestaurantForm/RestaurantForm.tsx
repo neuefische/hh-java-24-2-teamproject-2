@@ -67,7 +67,7 @@ export default function RestaurantForm({restaurantData, onSubmit}:RestaurantForm
                     <StyledFieldError>{fieldValidation.city}</StyledFieldError>
                 </StyledFormRow>
             </StyledFormBody>
-            <button type="submit">Add</button>
+            <button type="submit">Save</button>
         </StyledForm>
     )
 }
