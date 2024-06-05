@@ -1,0 +1,23 @@
+name: Format
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "20.x"
+      - run: npm ci
+        working-directory: ./frontend
+      - run: npm run prettify
+        working-directory: ./frontend
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Apply formatting changes
+          branch: ${{ github.head_ref }}
