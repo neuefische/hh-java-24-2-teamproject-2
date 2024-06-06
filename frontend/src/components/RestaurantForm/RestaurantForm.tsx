@@ -1,7 +1,5 @@
-import {ChangeEvent, FormEvent, useState} from "react";
-import {NewRestaurantDTOType} from "../../model/Restaurant.ts";
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {ChangeEvent, useState} from "react";
+import {NewRestaurantDTOType, RestaurantType} from "../../model/Restaurant.ts";
 import {
     StyledFieldError,
     StyledForm,
@@ -10,16 +8,21 @@ import {
     StyledInputField
 } from "./RestaurantForm.styled.ts";
 
-export default function RestaurantForm() {
+type RestaurantFormProps ={
+    restaurantData: RestaurantType | null;
+    onSubmit: (rg0: NewRestaurantDTOType) => void;
+}
+
+export default function RestaurantForm({restaurantData, onSubmit}:RestaurantFormProps) {
 
     const initialFieldValidation = {
         title: "",
         city: ""
     }
 
-    const [formData, setFormData] = useState<NewRestaurantDTOType>({title: "", city: ""});
+    const [formData, setFormData] = useState<NewRestaurantDTOType>( restaurantData || {title: "", city: ""});
     const [fieldValidation, setFieldValidation] = useState<NewRestaurantDTOType>(initialFieldValidation);
-    const navigate = useNavigate();
+
 
     function handleUserInput(event: ChangeEvent<HTMLInputElement>) {
         setFormData({...formData, [event.target.name]: event.target.value});
@@ -31,19 +34,13 @@ export default function RestaurantForm() {
         }
     }
 
-    function handleAddRestaurant(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        axios.post("/api/restaurants", formData)
-            .then(() => {
-                navigate("/")
-            })
-            .catch((error) => {
-                window.console.error(error.message)
-            })
-    }
+
 
     return (
-        <StyledForm onSubmit={handleAddRestaurant}>
+        <StyledForm onSubmit={(event    )=>{
+            event.preventDefault();
+            onSubmit(formData);
+        }}>
             <StyledFormBody>
                 <StyledFormRow>
                     <label htmlFor="title">Title</label>
@@ -70,7 +67,7 @@ export default function RestaurantForm() {
                     <StyledFieldError>{fieldValidation.city}</StyledFieldError>
                 </StyledFormRow>
             </StyledFormBody>
-            <button type="submit">Add</button>
+            <button type="submit">Save</button>
         </StyledForm>
     )
 }

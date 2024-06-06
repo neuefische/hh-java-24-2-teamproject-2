@@ -6,7 +6,7 @@ import {MemoryRouter} from "react-router-dom";
 test('RestaurantForm component displays label "title"', () => {
     render(
         <MemoryRouter>
-            <RestaurantForm />
+            <RestaurantForm  onSubmit={jest.fn()} restaurantData={null}/>
         </MemoryRouter>);
     const titleInput = screen.getByLabelText("Title");
     expect(titleInput).toBeInTheDocument();
@@ -15,7 +15,7 @@ test('RestaurantForm component displays label "title"', () => {
 test('RestaurantForm component displays input field "title"', () => {
     render(
         <MemoryRouter>
-            <RestaurantForm />
+            <RestaurantForm  onSubmit={jest.fn()} restaurantData={null}/>
         </MemoryRouter>);
     const titleInput = screen.getByRole("textbox", {
         name: /title/i
@@ -26,7 +26,7 @@ test('RestaurantForm component displays input field "title"', () => {
 test('RestaurantForm component displays label "city"', () => {
     render(
         <MemoryRouter>
-            <RestaurantForm />
+            <RestaurantForm  onSubmit={jest.fn()} restaurantData={null}/>
         </MemoryRouter>);
     const titleLabel = screen.getByLabelText("City");
     expect(titleLabel).toBeInTheDocument();
@@ -35,7 +35,7 @@ test('RestaurantForm component displays label "city"', () => {
 test('RestaurantForm component displays input field "city"', () => {
     render(
         <MemoryRouter>
-            <RestaurantForm />
+            <RestaurantForm  onSubmit={jest.fn()} restaurantData={null}/>
         </MemoryRouter>);
     const cityInput = screen.getByRole("textbox", {
         name: /city/i
@@ -43,14 +43,14 @@ test('RestaurantForm component displays input field "city"', () => {
     expect(cityInput).toBeInTheDocument();
 });
 
-test('RestaurantForm component displays "add" button', () => {
+test('RestaurantForm component displays "save" button', () => {
     render(
         <MemoryRouter>
-            <RestaurantForm />
+            <RestaurantForm  onSubmit={jest.fn()} restaurantData={null}/>
         </MemoryRouter>);
-    const addButton = screen.getByRole("button", {
-        name: /add/i
+    const saveButton = screen.getByRole("button", {
+        name: /save/i
     });
-    expect(addButton).toBeInTheDocument();
+    expect(saveButton).toBeInTheDocument();
 });
 
