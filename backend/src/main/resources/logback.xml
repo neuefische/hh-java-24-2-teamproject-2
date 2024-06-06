@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="Logtail" class="com.logtail.logback.LogtailAppender">
+        <appName>RestaurantApp</appName>
+        <sourceToken>${BETTERSTACK_SOURCE_TOKEN}</sourceToken>
+        <mdcFields>requestId,requestTime</mdcFields>
+        <mdcTypes>string,int</mdcTypes>
+    </appender>
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="Logtail" />
+        <appender-ref ref="Console" />
+    </root>
+</configuration>
