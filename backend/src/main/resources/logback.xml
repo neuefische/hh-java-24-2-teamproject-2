@@ -2,7 +2,7 @@
 <configuration>
     <appender name="Logtail" class="com.logtail.logback.LogtailAppender">
         <appName>RestaurantApp</appName>
-        <sourceToken>${BETTERSTACK_SOURCE_TOKEN}</sourceToken>
+        <sourceToken>${BETTERSTACK_TOKEN}</sourceToken>
         <mdcFields>requestId,requestTime</mdcFields>
         <mdcTypes>string,int</mdcTypes>
     </appender>

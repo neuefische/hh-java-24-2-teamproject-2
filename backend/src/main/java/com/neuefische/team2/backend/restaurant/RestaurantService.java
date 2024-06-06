@@ -4,6 +4,8 @@ import com.neuefische.team2.backend.exceptions.ResourceNotFoundException;
 import com.neuefische.team2.backend.restaurant.domain.NewRestaurantDTO;
 import com.neuefische.team2.backend.exceptions.NoSuchRestaurantException;
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Optional;
 
 @Service
 public class RestaurantService {
+    Logger logger = LoggerFactory.getLogger(RestaurantService.class);
 
     private final RestaurantRepository restaurantRepository;
 
@@ -23,7 +26,17 @@ public class RestaurantService {
     }
 
     public Restaurant findRestaurantById(String id) {
-        return restaurantRepository.findById(id).orElseThrow(() -> new NoSuchRestaurantException("Restaurant with id " + id + " not found"));
+        logger.info("Trying to find restaurant with ID {}", id);
+
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> {
+                    logger.error("Could not find restaurant with ID {}", id);
+                    return new NoSuchRestaurantException("Restaurant with id " + id + " not found");
+                });
+
+        logger.info("Found restaurant with ID {}", id);
+
+        return restaurant;
     }
 
     public Restaurant addRestaurant(Restaurant restaurant) {
