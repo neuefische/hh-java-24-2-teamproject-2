@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DefaultPageTemplate from "./templates/DefaultPageTemplate/DefaultPageTemplate.tsx";
 import axios from "axios";
 import { RestaurantType } from "../model/Restaurant.ts";
 
 import Button from "../components/Button/Button.tsx";
+import ButtonLink from "../components/ButtonLink/ButtonLink.tsx";
 import { logtail } from "../logger.ts";
 
 export default function RestaurantDetailsPage() {
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [restaurant, setRestaurant] = useState<RestaurantType>();
   const [error, setError] = useState<string | null>(null);
@@ -38,11 +40,18 @@ export default function RestaurantDetailsPage() {
     return <DefaultPageTemplate>Loading...</DefaultPageTemplate>;
   }
 
+  function deleteRestaurantById() {
+    axios.delete(`/api/restaurants/${id}`).then(() => navigate("/"));
+  }
+
   return (
     <DefaultPageTemplate pageTitle={restaurant.title}>
       <p>{restaurant.city}</p>
-      <Button href={`/restaurants/edit/${id}`}>Edit</Button>
-      <Button href="/">Back</Button>
+      <ButtonLink href={`/restaurants/edit/${id}`}>Edit</ButtonLink>
+      <ButtonLink href="/">Back</ButtonLink>
+      <Button buttonType={"delete"} handleOnClick={deleteRestaurantById}>
+        Delete
+      </Button>
     </DefaultPageTemplate>
   );
 }
