@@ -2,18 +2,26 @@ import DefaultPageTemplate from "./templates/DefaultPageTemplate/DefaultPageTemp
 import RestaurantForm from "../components/RestaurantForm/RestaurantForm.tsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { NewRestaurantDTOType } from "../model/Restaurant.ts";
+import { NewRestaurantDTOType, RestaurantType } from "../model/Restaurant.ts";
+import { logtail } from "../logger.ts";
 
 export default function AddRestaurantsPage() {
   const navigate = useNavigate();
 
   function handleAddRestaurant(formData: NewRestaurantDTOType) {
+    logtail.info("Trying to create a new restaurant record");
+
     axios
       .post("/api/restaurants", formData)
-      .then(() => {
-        navigate("/");
+      .then((response) => {
+        const savedRestaurant: RestaurantType = response.data;
+        logtail.info("Created new restaurant with ID " + savedRestaurant.id);
+        navigate("/restaurants/" + savedRestaurant.id);
       })
       .catch((error) => {
+        logtail.error(error.message, {
+          error: error,
+        });
         window.console.error(error.message);
       });
   }

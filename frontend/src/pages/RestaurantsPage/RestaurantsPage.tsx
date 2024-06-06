@@ -5,16 +5,25 @@ import { useEffect, useState } from "react";
 import { RestaurantType } from "../../model/Restaurant.ts";
 import CreateDataInvitation from "../../components/CreateDataInvitation/CreateDataInvitation.tsx";
 import { StyledErrorParagraph } from "./RestaurantsPage.styled.ts";
+import { logtail } from "../../logger.ts";
 
 export default function RestaurantsPage() {
   const [restaurants, setRestaurants] = useState<RestaurantType[]>([]);
   const [error, setError] = useState<AxiosError>();
 
   useEffect(() => {
+    logtail.info("Trying to receive all restaurants from /api/restaurants");
+
     axios
       .get("/api/restaurants")
-      .then((response) => setRestaurants(response.data))
+      .then((response) => {
+        logtail.info("Received " + response.data.length + " restaurants");
+        setRestaurants(response.data);
+      })
       .catch((error) => {
+        logtail.error(error.message, {
+          error: error,
+        });
         setError(error);
         console.error(error.message);
       });
