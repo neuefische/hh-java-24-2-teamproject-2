@@ -1,5 +1,5 @@
-import Button from "../Button/Button.tsx";
 import { StyledParagraph } from "./CreateDataInvitation.styled.ts";
+import ButtonLink from "../ButtonLink/ButtonLink.tsx";
 
 export default function CreateDataInvitation() {
   return (
@@ -8,7 +8,7 @@ export default function CreateDataInvitation() {
         Create your first restaurant! All your restaurants will be displayed
         here.
       </StyledParagraph>
-      <Button href="/restaurants/add">Add restaurant</Button>
+      <ButtonLink href="/restaurants/add">Add restaurant</ButtonLink>
     </>
   );
 }

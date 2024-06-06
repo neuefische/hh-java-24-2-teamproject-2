@@ -1,11 +1,27 @@
 import { ReactNode } from "react";
-import { StyledLink } from "./Button.styled.ts";
+import { StyledButton, StyledDeleteButton } from "./Button.styled.ts";
 
 type ButtonProps = {
   children: ReactNode;
-  href: string;
+  handleOnClick: () => void;
+  buttonType: "default" | "delete";
 };
 
-export default function Button({ children, href }: ButtonProps) {
-  return <StyledLink to={href}>{children}</StyledLink>;
+export default function Button({
+  children,
+  handleOnClick,
+  buttonType,
+}: ButtonProps) {
+  return (
+    <>
+      {buttonType === "default" && (
+        <StyledButton onClick={handleOnClick}>{children}</StyledButton>
+      )}
+      {buttonType === "delete" && (
+        <StyledDeleteButton onClick={handleOnClick}>
+          {children}
+        </StyledDeleteButton>
+      )}
+    </>
+  );
 }

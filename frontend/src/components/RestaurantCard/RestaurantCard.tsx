@@ -8,7 +8,7 @@ import {
   StyledFallbackImage,
   StyledImageContainer,
 } from "./RestaurantCard.styled.ts";
-import Button from "../Button/Button.tsx";
+import ButtonLink from "../ButtonLink/ButtonLink.tsx";
 
 type RestaurantCardProps = {
   restaurant: RestaurantType;
@@ -29,7 +29,7 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
           icon={<FaLocationDot />}
           value={restaurant.city}
         />
-        <Button href={`/restaurants/${restaurant.id}`}>Details</Button>
+        <ButtonLink href={`/restaurants/${restaurant.id}`}>Details</ButtonLink>
       </StyledDetailsContainer>
     </StyledArticle>
   );
