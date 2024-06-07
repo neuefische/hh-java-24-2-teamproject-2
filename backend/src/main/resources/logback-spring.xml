@@ -2,7 +2,7 @@
 <configuration>
     <springProperty scope="context" name="betterStackToken" source="BETTERSTACK_TOKEN"/>
     <appender name="Logtail" class="com.logtail.logback.LogtailAppender">
-        <appName>RestaurantApp</appName>
+        <appName>RestaurantApp Backend</appName>
         <sourceToken>${betterStackToken}</sourceToken>
         <mdcFields>requestId,requestTime</mdcFields>
         <mdcTypes>string,int</mdcTypes>
