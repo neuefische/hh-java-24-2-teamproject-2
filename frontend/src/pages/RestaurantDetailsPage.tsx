@@ -49,7 +49,7 @@ export default function RestaurantDetailsPage() {
       <p>{restaurant.city}</p>
       <ButtonLink href={`/restaurants/edit/${id}`}>Edit</ButtonLink>
       <ButtonLink href="/">Back</ButtonLink>
-      <Button buttonType={"delete"} handleOnClick={deleteRestaurantById}>
+      <Button buttonType="delete" handleOnClick={deleteRestaurantById}>
         Delete
       </Button>
     </DefaultPageTemplate>

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { StyledButton, StyledDeleteButton } from "./Button.styled.ts";
+import { StyledButton } from "./Button.styled.ts";
 
 type ButtonProps = {
   children: ReactNode;
@@ -13,15 +13,8 @@ export default function Button({
   buttonType,
 }: ButtonProps) {
   return (
-    <>
-      {buttonType === "default" && (
-        <StyledButton onClick={handleOnClick}>{children}</StyledButton>
-      )}
-      {buttonType === "delete" && (
-        <StyledDeleteButton onClick={handleOnClick}>
-          {children}
-        </StyledDeleteButton>
-      )}
-    </>
+    <StyledButton $buttonType={buttonType} onClick={handleOnClick}>
+      {children}
+    </StyledButton>
   );
 }
