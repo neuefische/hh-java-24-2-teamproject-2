@@ -72,13 +72,13 @@ class RestaurantServiceTest {
         when(mockRestaurantRepository.findById("1")).thenReturn(Optional.empty());
 
         // WHEN / THEN
-        assertThrows(NoSuchRestaurantException.class, () -> {
-            restaurantService.updateRestaurant(updatedRestaurantData, "1");
-        });
+        assertThrows(NoSuchRestaurantException.class, () ->
+                restaurantService.updateRestaurant(updatedRestaurantData, "1"));
 
         verify(mockRestaurantRepository).findById("1");
         verify(mockRestaurantRepository, never()).save(any(Restaurant.class));
     }
+
     @Test
     void findRestaurantById_whenRestaurantExists_thenReturnRestaurant() {
         //GIVEN
