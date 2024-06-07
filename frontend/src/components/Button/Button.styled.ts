@@ -18,10 +18,18 @@ export const StyledButton = styled.button<{ $buttonType: ButtonTypeTypes }>`
   cursor: pointer;
 
   &:hover {
-    background-color: color-mix(in srgb, var(--default-color) 80%, white);
+    background-color: color-mix(
+      in srgb,
+      ${(props) => getBackgroundColor[props.$buttonType]} 80%,
+      white
+    );
   }
 
   &:active {
-    background-color: color-mix(in srgb, var(--default-color) 70%, black);
+    background-color: color-mix(
+      in srgb,
+      ${(props) => getBackgroundColor[props.$buttonType]} 70%,
+      black
+    );
   }
 `;
