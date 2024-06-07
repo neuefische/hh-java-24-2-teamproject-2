@@ -3,13 +3,10 @@ package com.neuefische.team2.backend.restaurant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neuefische.team2.backend.restaurant.domain.NewRestaurantDTO;
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.neuefische.team2.backend.restaurant.domain.Restaurant;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
@@ -263,8 +260,8 @@ class RestaurantControllerIntegrationTest {
         //WHEN
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/restaurants/" + id))
                 //THEN
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(""));
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().string("Restaurant with id 123 not found"));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants"))
                 .andExpect(MockMvcResultMatchers.status().isOk())

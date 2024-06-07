@@ -125,6 +125,8 @@ class RestaurantServiceTest {
     void deleteRestaurant_whenMethodCalled_thenDeleteMethodOnRepositoryWasCalledOnlyOnce() {
         //GIVEN
         String id = "123";
+        Restaurant restaurantToDelete = new Restaurant(id, "abc", "NY");
+        when(mockRestaurantRepository.findById(id)).thenReturn(Optional.of(restaurantToDelete));
 
         //WHEN
         restaurantService.deleteRestaurant(id);
