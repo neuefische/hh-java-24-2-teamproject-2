@@ -58,6 +58,7 @@ public class RestaurantService {
     }
 
     public void deleteRestaurant(String id) {
+        this.findRestaurantById(id);
         restaurantRepository.deleteById(id);
     }
 }
