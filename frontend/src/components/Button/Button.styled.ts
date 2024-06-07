@@ -1,13 +1,17 @@
 import styled from "styled-components";
+import { ButtonTypeTypes } from "./Button.tsx";
 
-export const StyledButton = styled.button<{ $buttonType?: string }>`
+const getBackgroundColor = {
+  default: "var(--default-color",
+  delete: "var(--delete-color)",
+};
+
+export const StyledButton = styled.button<{ $buttonType: ButtonTypeTypes }>`
   display: inline-block;
   padding: 10px 20px;
   color: white;
-  background-color: ${(props) =>
-    props.$buttonType === "delete"
-      ? "var(--delete-color)"
-      : "var(--default-color)"};
+  background-color: ${(props) => getBackgroundColor[props.$buttonType]};
+
   text-decoration: none;
   border: none;
   border-radius: 5px;

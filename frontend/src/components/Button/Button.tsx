@@ -1,11 +1,13 @@
 import { ReactNode } from "react";
 import { StyledButton } from "./Button.styled.ts";
 
-type ButtonProps = {
+export type ButtonProps = {
   children: ReactNode;
   handleOnClick: () => void;
-  buttonType: "default" | "delete";
+  buttonType: ButtonTypeTypes;
 };
+
+export type ButtonTypeTypes = "default" | "delete";
 
 export default function Button({
   children,
