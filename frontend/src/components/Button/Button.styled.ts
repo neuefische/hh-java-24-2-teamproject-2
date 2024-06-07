@@ -1,21 +1,35 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { ButtonTypeTypes } from "./Button.tsx";
 
-export const StyledLink = styled(Link)`
+const getBackgroundColor = {
+  default: "var(--default-color",
+  delete: "var(--delete-color)",
+};
+
+export const StyledButton = styled.button<{ $buttonType: ButtonTypeTypes }>`
   display: inline-block;
   padding: 10px 20px;
   color: white;
-  background-color: var(--primary-color);
+  background-color: ${(props) => getBackgroundColor[props.$buttonType]};
+
   text-decoration: none;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 
   &:hover {
-    background-color: color-mix(in srgb, var(--primary-color) 80%, white);
+    background-color: color-mix(
+      in srgb,
+      ${(props) => getBackgroundColor[props.$buttonType]} 80%,
+      white
+    );
   }
 
   &:active {
-    background-color: color-mix(in srgb, var(--primary-color) 70%, black);
+    background-color: color-mix(
+      in srgb,
+      ${(props) => getBackgroundColor[props.$buttonType]} 70%,
+      black
+    );
   }
 `;

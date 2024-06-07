@@ -1,11 +1,22 @@
 import { ReactNode } from "react";
-import { StyledLink } from "./Button.styled.ts";
+import { StyledButton } from "./Button.styled.ts";
 
-type ButtonProps = {
+export type ButtonProps = {
   children: ReactNode;
-  href: string;
+  handleOnClick: () => void;
+  buttonType: ButtonTypeTypes;
 };
 
-export default function Button({ children, href }: ButtonProps) {
-  return <StyledLink to={href}>{children}</StyledLink>;
+export type ButtonTypeTypes = "default" | "delete";
+
+export default function Button({
+  children,
+  handleOnClick,
+  buttonType,
+}: ButtonProps) {
+  return (
+    <StyledButton $buttonType={buttonType} onClick={handleOnClick}>
+      {children}
+    </StyledButton>
+  );
 }
