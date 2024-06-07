@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { StyledLink } from "./Link.styled.ts";
+import { StyledLink } from "./ButtonLink.styled.ts";
 
 type ButtonLinkProps = {
   children: ReactNode;
