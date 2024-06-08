@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     env:
-      VITE_BETTERSTACK_TOKEN: ${{ env.VITE_BETTERSTACK_TOKEN }}
+      VITE_BETTERSTACK_TOKEN: ${{ secrets.VITE_BETTERSTACK_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
