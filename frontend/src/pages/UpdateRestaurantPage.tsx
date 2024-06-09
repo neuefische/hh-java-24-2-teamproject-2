@@ -6,6 +6,7 @@ import RestaurantForm from "../components/RestaurantForm/RestaurantForm.tsx";
 import { logtail } from "../logger.ts";
 import { useRestaurant } from "../data/restaurantData.ts";
 import AlertBox from "../components/AlertBox/AlertBox.tsx";
+import { mutate } from "swr";
 
 export default function UpdateRestaurantPage() {
   const navigate = useNavigate();
@@ -44,8 +45,10 @@ export default function UpdateRestaurantPage() {
     axios
       .put(`/api/restaurants/${id}`, formData)
       .then(() => {
-        logtail.info("Updated data of restaurant with ID " + id);
-        navigate("/");
+        logtail.info(`Updated data of restaurant with ID ${id}`);
+        mutate(`/api/restaurants/${id}`);
+        mutate("/api/restaurants");
+        navigate(`/restaurants/${id}`);
       })
       .catch((error) => {
         logtail.error(error.message, {

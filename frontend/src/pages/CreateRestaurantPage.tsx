@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { NewRestaurantDTOType, RestaurantType } from "../model/Restaurant.ts";
 import { logtail } from "../logger.ts";
+import { mutate } from "swr";
 
 export default function CreateRestaurantPage() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ export default function CreateRestaurantPage() {
       .then((response) => {
         const savedRestaurant: RestaurantType = response.data;
         logtail.info("Created new restaurant with ID " + savedRestaurant.id);
+        mutate("/api/restaurants");
         navigate("/restaurants/" + savedRestaurant.id);
       })
       .catch((error) => {
