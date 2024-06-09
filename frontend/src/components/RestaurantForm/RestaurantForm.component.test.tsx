@@ -2,11 +2,18 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import RestaurantForm from "./RestaurantForm.tsx";
 import { MemoryRouter } from "react-router-dom";
+import { NewRestaurantDTOType } from "../../model/Restaurant.ts";
+
+const initialFormData: NewRestaurantDTOType = { title: "", city: "" };
 
 test('RestaurantForm component displays label "title"', () => {
   render(
     <MemoryRouter>
-      <RestaurantForm onSubmit={jest.fn()} restaurantData={null} />
+      <RestaurantForm
+        onSubmit={jest.fn()}
+        initialFormData={initialFormData}
+        buttonText="Create"
+      />
     </MemoryRouter>
   );
   const titleInput = screen.getByLabelText("Title");
@@ -16,7 +23,11 @@ test('RestaurantForm component displays label "title"', () => {
 test('RestaurantForm component displays input field "title"', () => {
   render(
     <MemoryRouter>
-      <RestaurantForm onSubmit={jest.fn()} restaurantData={null} />
+      <RestaurantForm
+        onSubmit={jest.fn()}
+        initialFormData={initialFormData}
+        buttonText="Create"
+      />
     </MemoryRouter>
   );
   const titleInput = screen.getByRole("textbox", {
@@ -28,7 +39,11 @@ test('RestaurantForm component displays input field "title"', () => {
 test('RestaurantForm component displays label "city"', () => {
   render(
     <MemoryRouter>
-      <RestaurantForm onSubmit={jest.fn()} restaurantData={null} />
+      <RestaurantForm
+        onSubmit={jest.fn()}
+        initialFormData={initialFormData}
+        buttonText="Create"
+      />
     </MemoryRouter>
   );
   const titleLabel = screen.getByLabelText("City");
@@ -38,7 +53,11 @@ test('RestaurantForm component displays label "city"', () => {
 test('RestaurantForm component displays input field "city"', () => {
   render(
     <MemoryRouter>
-      <RestaurantForm onSubmit={jest.fn()} restaurantData={null} />
+      <RestaurantForm
+        onSubmit={jest.fn()}
+        initialFormData={initialFormData}
+        buttonText="Create"
+      />
     </MemoryRouter>
   );
   const cityInput = screen.getByRole("textbox", {
@@ -47,14 +66,34 @@ test('RestaurantForm component displays input field "city"', () => {
   expect(cityInput).toBeInTheDocument();
 });
 
-test('RestaurantForm component displays "save" button', () => {
+test('RestaurantForm component displays "create" button', () => {
   render(
     <MemoryRouter>
-      <RestaurantForm onSubmit={jest.fn()} restaurantData={null} />
+      <RestaurantForm
+        onSubmit={jest.fn()}
+        initialFormData={initialFormData}
+        buttonText="Create"
+      />
     </MemoryRouter>
   );
   const saveButton = screen.getByRole("button", {
-    name: /save/i,
+    name: /create/i,
+  });
+  expect(saveButton).toBeInTheDocument();
+});
+
+test('RestaurantForm component displays "create" button', () => {
+  render(
+    <MemoryRouter>
+      <RestaurantForm
+        onSubmit={jest.fn()}
+        initialFormData={initialFormData}
+        buttonText="Update"
+      />
+    </MemoryRouter>
+  );
+  const saveButton = screen.getByRole("button", {
+    name: /update/i,
   });
   expect(saveButton).toBeInTheDocument();
 });
