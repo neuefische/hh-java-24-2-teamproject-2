@@ -5,8 +5,8 @@ import axios from "axios";
 import Button from "../components/Button/Button.tsx";
 import ButtonLink from "../components/ButtonLink/ButtonLink.tsx";
 import { useRestaurant } from "../data/restaurantData.ts";
-import { StyledErrorParagraph } from "./RestaurantsPage/RestaurantsPage.styled.ts";
 import { logtail } from "../logger.ts";
+import AlertBox from "../components/AlertBox/AlertBox.tsx";
 
 export default function RestaurantDetailsPage() {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export default function RestaurantDetailsPage() {
           Sorry, we encountered an error loading the restaurants. Please try
           again later.
         </p>
-        <StyledErrorParagraph>{isError.message}</StyledErrorParagraph>
+        <AlertBox>{isError.message}</AlertBox>
       </DefaultPageTemplate>
     );
   }

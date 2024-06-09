@@ -2,8 +2,8 @@ import RestaurantCardList from "../../components/RestaurantCardList/RestaurantCa
 import DefaultPageTemplate from "../templates/DefaultPageTemplate/DefaultPageTemplate.tsx";
 
 import CreateDataInvitation from "../../components/CreateDataInvitation/CreateDataInvitation.tsx";
-import { StyledErrorParagraph } from "./RestaurantsPage.styled.ts";
 import { useRestaurants } from "../../data/restaurantData.ts";
+import AlertBox from "../../components/AlertBox/AlertBox.tsx";
 
 export default function RestaurantsPage() {
   const { restaurants, isLoading, isError } = useRestaurants();
@@ -23,7 +23,7 @@ export default function RestaurantsPage() {
           Sorry, we encountered an error loading the restaurants. Please try
           again later.
         </p>
-        <StyledErrorParagraph>{isError.message}</StyledErrorParagraph>
+        <AlertBox>{isError.message}</AlertBox>
       </DefaultPageTemplate>
     );
   }

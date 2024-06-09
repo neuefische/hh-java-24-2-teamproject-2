@@ -5,7 +5,7 @@ import DefaultPageTemplate from "./templates/DefaultPageTemplate/DefaultPageTemp
 import RestaurantForm from "../components/RestaurantForm/RestaurantForm.tsx";
 import { logtail } from "../logger.ts";
 import { useRestaurant } from "../data/restaurantData.ts";
-import { StyledErrorParagraph } from "./RestaurantsPage/RestaurantsPage.styled.ts";
+import AlertBox from "../components/AlertBox/AlertBox.tsx";
 
 export default function RestaurantEditPage() {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ export default function RestaurantEditPage() {
           Sorry, we encountered an error loading the restaurants. Please try
           again later.
         </p>
-        <StyledErrorParagraph>{isError.message}</StyledErrorParagraph>
+        <AlertBox>{isError.message}</AlertBox>
       </DefaultPageTemplate>
     );
   }
