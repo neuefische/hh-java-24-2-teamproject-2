@@ -40,7 +40,7 @@ export default function UpdateRestaurantPage() {
   }
 
   function handleEditRestaurant(formData: NewRestaurantDTOType) {
-    logtail.info("Trying to update data for restaurant with ID " + id);
+    logtail.info(`Trying to update data for restaurant with ID ${id}`);
 
     axios
       .put(`/api/restaurants/${id}`, formData)

@@ -41,10 +41,21 @@ export default function ViewRestaurantPage() {
   }
 
   function deleteRestaurantById() {
-    axios.delete(`/api/restaurants/${id}`).then(() => {
-      mutate("/api/restaurants");
-      navigate("/");
-    });
+    logtail.info(`Trying to delete data for restaurant with ID ${id}`);
+
+    axios
+      .delete(`/api/restaurants/${id}`)
+      .then(() => {
+        logtail.info(`Deleted data of restaurant with ID ${id}`);
+        mutate("/api/restaurants");
+        navigate("/");
+      })
+      .catch((error) => {
+        logtail.error(error.message, {
+          error: error,
+        });
+        window.console.error(error.message);
+      });
   }
 
   return (
