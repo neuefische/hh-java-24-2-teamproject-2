@@ -7,6 +7,7 @@ import ButtonLink from "../components/ButtonLink/ButtonLink.tsx";
 import { useRestaurant } from "../data/restaurantData.ts";
 import { logtail } from "../logger.ts";
 import AlertBox from "../components/AlertBox/AlertBox.tsx";
+import { mutate } from "swr";
 
 export default function RestaurantDetailsPage() {
   const navigate = useNavigate();
@@ -40,7 +41,10 @@ export default function RestaurantDetailsPage() {
   }
 
   function deleteRestaurantById() {
-    axios.delete(`/api/restaurants/${id}`).then(() => navigate("/"));
+    axios.delete(`/api/restaurants/${id}`).then(() => {
+      mutate("/api/restaurants");
+      navigate("/");
+    });
   }
 
   return (

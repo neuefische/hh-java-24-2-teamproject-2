@@ -1,9 +1,9 @@
-import RestaurantsPage from "./pages/RestaurantsPage/RestaurantsPage.tsx";
 import RestaurantDetailsPage from "./pages/RestaurantDetailsPage.tsx";
 import { Route, Routes } from "react-router-dom";
 import AddRestaurantsPage from "./pages/AddRestaurantsPage.tsx";
 import RestaurantEditPage from "./pages/RestaurantEditPage.tsx";
 import "./App.css";
+import RestaurantsPage from "./pages/RestaurantsPage.tsx";
 
 function App() {
   return (
