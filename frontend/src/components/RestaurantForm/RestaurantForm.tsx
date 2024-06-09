@@ -19,7 +19,7 @@ type RestaurantFormProps = {
 export default function RestaurantForm({
   restaurantData,
   onSubmit,
-}: RestaurantFormProps) {
+}: Readonly<RestaurantFormProps>) {
   const initialFieldValidation = {
     title: "",
     city: "",
@@ -62,6 +62,7 @@ export default function RestaurantForm({
             onChange={handleUserInput}
             value={formData.title}
             required
+            autoFocus
           />
           <StyledFieldError>{fieldValidation.title}</StyledFieldError>
         </StyledFormRow>
