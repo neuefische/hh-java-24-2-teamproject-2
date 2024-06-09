@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { NewRestaurantDTOType, RestaurantType } from "../model/Restaurant.ts";
 import { logtail } from "../logger.ts";
 
-export default function AddRestaurantsPage() {
+export default function CreateRestaurantPage() {
   const navigate = useNavigate();
 
   function handleAddRestaurant(formData: NewRestaurantDTOType) {

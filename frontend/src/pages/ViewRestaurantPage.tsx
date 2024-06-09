@@ -9,7 +9,7 @@ import { logtail } from "../logger.ts";
 import AlertBox from "../components/AlertBox/AlertBox.tsx";
 import { mutate } from "swr";
 
-export default function RestaurantDetailsPage() {
+export default function ViewRestaurantPage() {
   const navigate = useNavigate();
   const { id: paramId } = useParams<{ id: string }>();
   const id = paramId ?? "";

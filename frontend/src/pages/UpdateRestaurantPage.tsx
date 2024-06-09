@@ -7,7 +7,7 @@ import { logtail } from "../logger.ts";
 import { useRestaurant } from "../data/restaurantData.ts";
 import AlertBox from "../components/AlertBox/AlertBox.tsx";
 
-export default function RestaurantEditPage() {
+export default function UpdateRestaurantPage() {
   const navigate = useNavigate();
   const { id: paramId } = useParams<{ id: string }>();
   const id = paramId ?? "";
