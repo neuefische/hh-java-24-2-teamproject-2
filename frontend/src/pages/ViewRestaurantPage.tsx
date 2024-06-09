@@ -8,6 +8,7 @@ import { useRestaurant } from "../data/restaurantData.ts";
 import { logtail } from "../logger.ts";
 import AlertBox from "../components/AlertBox/AlertBox.tsx";
 import { mutate } from "swr";
+import { RestaurantType } from "../model/Restaurant.ts";
 
 export default function ViewRestaurantPage() {
   const navigate = useNavigate();
@@ -40,7 +41,15 @@ export default function ViewRestaurantPage() {
     return <DefaultPageTemplate>Error</DefaultPageTemplate>;
   }
 
-  function deleteRestaurantById() {
+  function deleteRestaurantById(id: string, restaurant: RestaurantType) {
+    const isConfirmed = confirm(
+      `Do you really want to delete "${restaurant.title}"?`
+    );
+
+    if (!isConfirmed) {
+      return;
+    }
+
     logtail.info(`Trying to delete data for restaurant with ID ${id}`);
 
     axios
@@ -63,7 +72,10 @@ export default function ViewRestaurantPage() {
       <p>{restaurant.city}</p>
       <ButtonLink href={`/restaurants/edit/${id}`}>Edit</ButtonLink>
       <ButtonLink href="/">Back</ButtonLink>
-      <Button buttonType="delete" handleOnClick={deleteRestaurantById}>
+      <Button
+        buttonType="delete"
+        handleOnClick={() => deleteRestaurantById(id, restaurant)}
+      >
         Delete
       </Button>
     </DefaultPageTemplate>
