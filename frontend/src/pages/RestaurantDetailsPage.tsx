@@ -1,43 +1,42 @@
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DefaultPageTemplate from "./templates/DefaultPageTemplate/DefaultPageTemplate.tsx";
 import axios from "axios";
-import { RestaurantType } from "../model/Restaurant.ts";
 
 import Button from "../components/Button/Button.tsx";
 import ButtonLink from "../components/ButtonLink/ButtonLink.tsx";
+import { useRestaurant } from "../data/restaurantData.ts";
+import { StyledErrorParagraph } from "./RestaurantsPage/RestaurantsPage.styled.ts";
 import { logtail } from "../logger.ts";
 
 export default function RestaurantDetailsPage() {
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-  const [restaurant, setRestaurant] = useState<RestaurantType>();
-  const [error, setError] = useState<string | null>(null);
+  const { id: paramId } = useParams<{ id: string }>();
+  const id = paramId ?? "";
+  const { restaurant, isLoading, isError } = useRestaurant(id);
 
-  useEffect(() => {
-    logtail.info("Trying to receive data for restaurant with ID " + id);
+  if (isLoading) {
+    return (
+      <DefaultPageTemplate pageTitle="Loading">
+        <p>Restaurant is currently loading. Please wait.</p>
+      </DefaultPageTemplate>
+    );
+  }
 
-    axios
-      .get(`/api/restaurants/${id}`)
-      .then((response) => {
-        logtail.info("Received data of restaurant with ID " + id);
-        setRestaurant(response.data);
-      })
-      .catch((error) => {
-        logtail.error(error.message, {
-          error: error,
-        });
-        setError("There was an error fetching the restaurant details!");
-        console.error(error);
-      });
-  }, [id]);
-
-  if (error) {
-    return <DefaultPageTemplate>{error}</DefaultPageTemplate>;
+  if (isError) {
+    return (
+      <DefaultPageTemplate pageTitle="Error">
+        <p>
+          Sorry, we encountered an error loading the restaurants. Please try
+          again later.
+        </p>
+        <StyledErrorParagraph>{isError.message}</StyledErrorParagraph>
+      </DefaultPageTemplate>
+    );
   }
 
   if (!restaurant) {
-    return <DefaultPageTemplate>Loading...</DefaultPageTemplate>;
+    logtail.error(`There was an error displaying restaurant with ID ${id}`);
+    return <DefaultPageTemplate>Error</DefaultPageTemplate>;
   }
 
   function deleteRestaurantById() {
