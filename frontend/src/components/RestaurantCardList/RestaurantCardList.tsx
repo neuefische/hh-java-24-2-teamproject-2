@@ -8,7 +8,7 @@ type RestaurantCardListProps = {
 
 export default function RestaurantCardList({
   restaurants,
-}: RestaurantCardListProps) {
+}: Readonly<RestaurantCardListProps>) {
   return (
     <StyledUnorderedList>
       {restaurants.map((restaurant) => {

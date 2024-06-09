@@ -14,7 +14,9 @@ type RestaurantCardProps = {
   restaurant: RestaurantType;
 };
 
-export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
+export default function RestaurantCard({
+  restaurant,
+}: Readonly<RestaurantCardProps>) {
   return (
     <StyledArticle>
       <StyledImageContainer>

@@ -13,7 +13,7 @@ export default function Button({
   children,
   handleOnClick,
   buttonType,
-}: ButtonProps) {
+}: Readonly<ButtonProps>) {
   return (
     <StyledButton $buttonType={buttonType} onClick={handleOnClick}>
       {children}
