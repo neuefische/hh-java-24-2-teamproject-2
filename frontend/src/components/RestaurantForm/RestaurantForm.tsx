@@ -12,11 +12,13 @@ import _ from "lodash";
 type RestaurantFormProps = {
   onSubmit: (rg0: NewRestaurantDTOType) => void;
   initialFormData: NewRestaurantDTOType;
+  buttonText: "Create" | "Update";
 };
 
 export default function RestaurantForm({
   onSubmit,
   initialFormData,
+  buttonText,
 }: Readonly<RestaurantFormProps>) {
   const initialFieldValidation = {
     title: "",
@@ -82,14 +84,9 @@ export default function RestaurantForm({
           <StyledFieldError>{fieldValidation.city}</StyledFieldError>
         </StyledFormRow>
       </StyledFormBody>
-
-      {hasInputChanges || !hasValidationErrors ? (
-        <button type="submit" disabled>
-          Save
-        </button>
-      ) : (
-        <button type="submit">Save</button>
-      )}
+      <button type="submit" disabled={hasInputChanges || !hasValidationErrors}>
+        {buttonText}
+      </button>
     </StyledForm>
   );
 }

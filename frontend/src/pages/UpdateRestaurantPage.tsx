@@ -63,6 +63,7 @@ export default function UpdateRestaurantPage() {
       <RestaurantForm
         onSubmit={handleEditRestaurant}
         initialFormData={restaurant}
+        buttonText="Update"
       />
     </DefaultPageTemplate>
   );
