@@ -10,7 +10,7 @@ type DefaultPageTemplateProps = {
 export default function DefaultPageTemplate({
   children,
   pageTitle,
-}: DefaultPageTemplateProps) {
+}: Readonly<DefaultPageTemplateProps>) {
   return (
     <>
       <Header />

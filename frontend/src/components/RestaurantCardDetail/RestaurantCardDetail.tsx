@@ -9,7 +9,7 @@ type RestaurantCardDetailProps = {
 export default function RestaurantCardDetail({
   icon,
   value,
-}: RestaurantCardDetailProps) {
+}: Readonly<RestaurantCardDetailProps>) {
   return (
     <StyledDetailContainer>
       <div>{icon}</div>

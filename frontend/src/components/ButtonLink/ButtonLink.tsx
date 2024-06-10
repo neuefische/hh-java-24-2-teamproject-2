@@ -6,6 +6,9 @@ type ButtonLinkProps = {
   href: string;
 };
 
-export default function ButtonLink({ children, href }: ButtonLinkProps) {
+export default function ButtonLink({
+  children,
+  href,
+}: Readonly<ButtonLinkProps>) {
   return <StyledLink to={href}>{children}</StyledLink>;
 }
