@@ -1,8 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import {
-  NewRestaurantDTOType,
-  RestaurantType,
-} from "../../model/Restaurant.ts";
+import { NewRestaurantDTOType } from "../../model/Restaurant.ts";
 import {
   StyledFieldError,
   StyledForm,
@@ -10,24 +7,26 @@ import {
   StyledFormRow,
   StyledInputField,
 } from "./RestaurantForm.styled.ts";
+import _ from "lodash";
 
 type RestaurantFormProps = {
-  restaurantData: RestaurantType | null;
   onSubmit: (rg0: NewRestaurantDTOType) => void;
+  initialFormData: NewRestaurantDTOType;
+  buttonText: "Create" | "Update";
 };
 
 export default function RestaurantForm({
-  restaurantData,
   onSubmit,
+  initialFormData,
+  buttonText,
 }: Readonly<RestaurantFormProps>) {
   const initialFieldValidation = {
     title: "",
     city: "",
   };
 
-  const [formData, setFormData] = useState<NewRestaurantDTOType>(
-    restaurantData || { title: "", city: "" }
-  );
+  const [formData, setFormData] =
+    useState<NewRestaurantDTOType>(initialFormData);
   const [fieldValidation, setFieldValidation] = useState<NewRestaurantDTOType>(
     initialFieldValidation
   );
@@ -44,6 +43,12 @@ export default function RestaurantForm({
       setFieldValidation({ ...fieldValidation, [event.target.name]: "" });
     }
   }
+
+  const hasInputChanges = _.isEqual(formData, initialFormData);
+  const hasValidationErrors = _.isEqual(
+    fieldValidation,
+    initialFieldValidation
+  );
 
   return (
     <StyledForm
@@ -79,7 +84,9 @@ export default function RestaurantForm({
           <StyledFieldError>{fieldValidation.city}</StyledFieldError>
         </StyledFormRow>
       </StyledFormBody>
-      <button type="submit">Save</button>
+      <button type="submit" disabled={hasInputChanges || !hasValidationErrors}>
+        {buttonText}
+      </button>
     </StyledForm>
   );
 }

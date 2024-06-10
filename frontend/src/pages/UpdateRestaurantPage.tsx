@@ -40,7 +40,7 @@ export default function UpdateRestaurantPage() {
   }
 
   function handleEditRestaurant(formData: NewRestaurantDTOType) {
-    logtail.info("Trying to update data for restaurant with ID " + id);
+    logtail.info(`Trying to update data for restaurant with ID ${id}`);
 
     axios
       .put(`/api/restaurants/${id}`, formData)
@@ -62,7 +62,8 @@ export default function UpdateRestaurantPage() {
     <DefaultPageTemplate pageTitle="Edit restaurant">
       <RestaurantForm
         onSubmit={handleEditRestaurant}
-        restaurantData={restaurant}
+        initialFormData={restaurant}
+        buttonText="Update"
       />
     </DefaultPageTemplate>
   );

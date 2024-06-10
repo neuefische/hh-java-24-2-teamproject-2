@@ -30,7 +30,11 @@ export default function CreateRestaurantPage() {
 
   return (
     <DefaultPageTemplate pageTitle="New restaurant">
-      <RestaurantForm onSubmit={handleAddRestaurant} restaurantData={null} />
+      <RestaurantForm
+        onSubmit={handleAddRestaurant}
+        initialFormData={{ title: "", city: "" }}
+        buttonText="Create"
+      />
     </DefaultPageTemplate>
   );
 }
