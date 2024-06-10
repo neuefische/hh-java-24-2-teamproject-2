@@ -1,5 +1,6 @@
 # Database Configuration
 MONGODB_URI=your_db_uri
+MONGODB_DB=restaurantApp
 
 # Logging Configuration
 BETTERSTACK_TOKEN=your_betterstack_token
