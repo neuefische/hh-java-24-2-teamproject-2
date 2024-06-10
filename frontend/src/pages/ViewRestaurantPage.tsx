@@ -9,6 +9,7 @@ import { logtail } from "../logger.ts";
 import AlertBox from "../components/AlertBox/AlertBox.tsx";
 import { mutate } from "swr";
 import { RestaurantType } from "../model/Restaurant.ts";
+import CommentsSection from "../components/Comments/CommentsSection.tsx";
 
 export default function ViewRestaurantPage() {
   const navigate = useNavigate();
@@ -78,6 +79,7 @@ export default function ViewRestaurantPage() {
       >
         Delete
       </Button>
+      <CommentsSection restaurantId={id} />
     </DefaultPageTemplate>
   );
 }
