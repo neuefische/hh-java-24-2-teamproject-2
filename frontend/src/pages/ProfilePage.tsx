@@ -17,7 +17,7 @@ export default function ProfilePage() {
 
   function logout() {
     axios
-      .get("/logout")
+      .get("/api/auth/logout")
       .then(() => {
         logtail.info("Logged out successfully");
       })
