@@ -3,11 +3,13 @@ package com.neuefische.team2.backend.restaurant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neuefische.team2.backend.restaurant.domain.NewRestaurantDTO;
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -25,6 +27,7 @@ class RestaurantControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
+    @WithMockUser
     void getAllProducts_whenNoProductInDB_thenReturnEmptyList() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -33,6 +36,7 @@ class RestaurantControllerIntegrationTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void getAllProducts_whenOneProductInDB_thenReturnListOfOne() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -62,6 +66,7 @@ class RestaurantControllerIntegrationTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void addRestaurant_whenNewRestaurantDTO_thenReturnSavedRestaurantWithId() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -83,6 +88,7 @@ class RestaurantControllerIntegrationTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void addRestaurant_whenTitleEmptyString_thenReturnException() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -107,6 +113,7 @@ class RestaurantControllerIntegrationTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void addRestaurant_whenCityEmptyString_thenReturnException() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -131,6 +138,7 @@ class RestaurantControllerIntegrationTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void addRestaurant_whenTitleAndCityEmptyString_thenReturnException() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -159,6 +167,7 @@ class RestaurantControllerIntegrationTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void addRestaurant_whenTitleAndCityContainOnlySpaces_thenReturnException() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -186,11 +195,12 @@ class RestaurantControllerIntegrationTest {
     }
 
     @Test
+    @WithMockUser
     void getRestaurantById_whenRestaurantExists_thenReturnRestaurant() throws Exception {
         //GIVEN
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
-                    .contentType(MediaType.APPLICATION_JSON)
-                        .content("""                        
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""                        
                             {
                               "title": "The Mockingbird",
                               "city": "New York"
@@ -213,6 +223,7 @@ class RestaurantControllerIntegrationTest {
     }
 
     @Test
+    @WithMockUser
     void getRestaurantById_whenRestaurantDoesNotExist_thenReturnNotFound() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants/999"))
@@ -221,6 +232,7 @@ class RestaurantControllerIntegrationTest {
     }
 
     @Test
+    @WithMockUser
     void updateRestaurant_whenRestaurantExists_thenReturnUpdatedRestaurant() throws Exception {
         // Arrange: Add a restaurant to the DB
         NewRestaurantDTO newRestaurant = new NewRestaurantDTO("Old Name", "Old City");
@@ -243,6 +255,7 @@ class RestaurantControllerIntegrationTest {
     }
 
     @Test
+    @WithMockUser
     void updateRestaurant_whenRestaurantDoesNotExist_thenReturnNotFound() throws Exception {
         // Act: Try to update a non-existing restaurant
         Restaurant updatedRestaurant = new Restaurant(null, "New Name", "New City");
@@ -253,6 +266,7 @@ class RestaurantControllerIntegrationTest {
     }
 
     @Test
+    @WithMockUser
     void deleteRestaurant_whenNoRestaurantInDB_thenDBStaysEmpty() throws Exception {
         //GIVEN
         String id = "123";
@@ -269,6 +283,7 @@ class RestaurantControllerIntegrationTest {
     }
 
     @Test
+    @WithMockUser
     @DirtiesContext
     void deleteRestaurant_whenRestaurantInDB_thenDBDoesNotContainRestaurantAnymore() throws Exception {
         //GIVEN
