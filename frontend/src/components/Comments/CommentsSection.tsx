@@ -21,6 +21,9 @@ function CommentsSection({ restaurantId }: CommentsSectionProps) {
   }, [restaurantId]);
 
   const handleAddComment = () => {
+    if (newComment.text.trim() === "") {
+      return;
+    }
     axios
       .post(`/api/restaurants/${restaurantId}/comments`, newComment)
       .then((response) => {
