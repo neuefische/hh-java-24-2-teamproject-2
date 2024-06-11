@@ -16,6 +16,7 @@ export default function ProfilePage() {
   }
 
   const [user, setUser] = useState<UserType | undefined>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   function loadUser() {
     axios
@@ -28,12 +29,30 @@ export default function ProfilePage() {
         logtail.error(error.message, {
           error: error,
         });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   useEffect(() => {
     loadUser();
   }, []);
+
+  if (isLoading) {
+    return (
+      <DefaultPageTemplate pageTitle="Profile">
+        <table>
+          <tbody>
+            <tr>
+              <td>Name:</td>
+              <td>Godot</td>
+            </tr>
+          </tbody>
+        </table>
+      </DefaultPageTemplate>
+    );
+  }
 
   if (!user) {
     return (
