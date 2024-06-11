@@ -15,6 +15,19 @@ export default function ProfilePage() {
     window.open(host + "/oauth2/authorization/github", "_self");
   }
 
+  function logout() {
+    axios
+      .get("/logout")
+      .then(() => {
+        logtail.info("Logged out successfully");
+      })
+      .catch((error) => {
+        logtail.error(error.message, {
+          error: error,
+        });
+      });
+  }
+
   const [user, setUser] = useState<UserType | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -66,6 +79,9 @@ export default function ProfilePage() {
 
   return (
     <DefaultPageTemplate pageTitle="Profile">
+      <Button onClick={logout} buttonType="default">
+        Logout
+      </Button>
       <img src={user?.avatar_url} alt={`Profile picture of ${user?.name}`} />
       <table>
         <tbody>
