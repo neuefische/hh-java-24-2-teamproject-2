@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ButtonTypeTypes } from "./Button.tsx";
 
 const getBackgroundColor = {
-  default: "var(--default-color",
+  default: "var(--default-color)",
   delete: "var(--delete-color)",
 };
 

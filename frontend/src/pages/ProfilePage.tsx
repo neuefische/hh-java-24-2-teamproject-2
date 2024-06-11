@@ -5,8 +5,11 @@ import axios from "axios";
 import { logtail } from "../logger.ts";
 import Button from "../components/Button/Button.tsx";
 import { useNavigate } from "react-router-dom";
+import { mutate } from "swr";
 
 export default function ProfilePage() {
+  const [user, setUser] = useState<UserType | undefined>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   function login() {
@@ -16,13 +19,15 @@ export default function ProfilePage() {
         : window.location.origin;
 
     window.open(host + "/oauth2/authorization/github", "_self");
+    logtail.info(`Logged in user successfully`);
   }
 
   function logout() {
     axios
       .get("/api/auth/logout")
       .then(() => {
-        logtail.info("Logged out successfully");
+        logtail.info(`Logged out user with ID ${user?.id} successfully`);
+        mutate("/", () => {}, true);
         navigate("/");
       })
       .catch((error) => {
@@ -32,18 +37,17 @@ export default function ProfilePage() {
       });
   }
 
-  const [user, setUser] = useState<UserType | undefined>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
   function loadUser() {
     axios
       .get("/api/auth/me")
       .then((response) => {
-        logtail.info("User loaded");
+        logtail.info(
+          `Loaded user data for user with ID ${response.data.id} successfully`
+        );
         setUser(response.data);
       })
       .catch((error) => {
-        logtail.error(error.message, {
+        logtail.error("Failed to load user data", {
           error: error,
         });
       })
