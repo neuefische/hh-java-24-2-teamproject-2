@@ -1,5 +1,6 @@
 package com.neuefische.team2.backend.restaurant;
 
+import com.neuefische.team2.backend.restaurant.domain.Comment;
 import com.neuefische.team2.backend.restaurant.domain.NewCommentDTO;
 import com.neuefische.team2.backend.restaurant.domain.NewRestaurantDTO;
 import com.neuefische.team2.backend.exceptions.ResourceNotFoundException;
@@ -59,7 +60,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}/comments")
-    public List<Restaurant.Comment> getComments(@PathVariable String id) {
+    public List<Comment> getComments(@PathVariable String id) {
         return restaurantService.getCommentsForRestaurant(id);
     }
 }

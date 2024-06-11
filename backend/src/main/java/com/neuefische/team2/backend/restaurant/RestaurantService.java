@@ -1,6 +1,7 @@
 package com.neuefische.team2.backend.restaurant;
 
 import com.neuefische.team2.backend.exceptions.ResourceNotFoundException;
+import com.neuefische.team2.backend.restaurant.domain.Comment;
 import com.neuefische.team2.backend.restaurant.domain.NewRestaurantDTO;
 import com.neuefische.team2.backend.exceptions.NoSuchRestaurantException;
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
@@ -67,8 +68,8 @@ public class RestaurantService {
         logger.info("Trying to add comment to restaurant with ID {}", id);
 
         Restaurant restaurant = this.findRestaurantById(id);
-        List<Restaurant.Comment> updatedComments = new ArrayList<>(restaurant.comments() != null ? restaurant.comments() : new ArrayList<>());
-        Restaurant.Comment comment = new Restaurant.Comment(commentText, System.currentTimeMillis());
+        List<Comment> updatedComments = new ArrayList<>(restaurant.comments() != null ? restaurant.comments() : new ArrayList<>());
+        Comment comment = new Comment(commentText, System.currentTimeMillis());
         updatedComments.add(comment);
 
         Restaurant updatedRestaurant = new Restaurant(
@@ -81,7 +82,7 @@ public class RestaurantService {
     }
 
 
-    public List<Restaurant.Comment> getCommentsForRestaurant(String id) throws ResourceNotFoundException {
+    public List<Comment> getCommentsForRestaurant(String id) throws ResourceNotFoundException {
         logger.info("Trying to get comments for restaurant with ID {}", id);
 
         Restaurant restaurant = this.findRestaurantById(id);

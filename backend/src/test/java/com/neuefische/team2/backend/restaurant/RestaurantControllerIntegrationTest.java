@@ -297,4 +297,70 @@ class RestaurantControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$..title").value(expected.title()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$..city").value(expected.city()));
     }
+
+    @DirtiesContext
+    @Test
+    void addCommentToRestaurant_whenRestaurantExists_thenAddCommentAndReturnUpdatedRestaurant() throws Exception {
+        // Arrange: Add a restaurant to the DB
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                            {
+                                "title": "The Mockingbird",
+                                "city": "New York"
+                            }
+                            """))
+                .andReturn();
+
+        ObjectMapper mapper = new ObjectMapper();
+        Restaurant restaurant = mapper.readValue(result.getResponse().getContentAsString(), Restaurant.class);
+
+        // Act: Add a comment to the restaurant
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants/" + restaurant.id() + "/comments")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                            {
+                                "text": "Great place!"
+                            }
+                            """))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.comments[0].text").value("Great place!"));
+    }
+
+
+    @DirtiesContext
+    @Test
+    void getCommentsForRestaurant_whenRestaurantExists_thenReturnComments() throws Exception {
+        // Arrange: Add a restaurant to the DB
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                            {
+                                "title": "The Mockingbird",
+                                "city": "New York"
+                            }
+                            """))
+                .andReturn();
+
+        ObjectMapper mapper = new ObjectMapper();
+        Restaurant restaurant = mapper.readValue(result.getResponse().getContentAsString(), Restaurant.class);
+
+        // Add a comment to the restaurant
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/restaurants/" + restaurant.id() + "/comments")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                            {
+                                "text": "Great place!"
+                            }
+                            """))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        // Get comments for the restaurant
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/restaurants/" + restaurant.id() + "/comments"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].text").value("Great place!"));
+
+    }
+
+
 }

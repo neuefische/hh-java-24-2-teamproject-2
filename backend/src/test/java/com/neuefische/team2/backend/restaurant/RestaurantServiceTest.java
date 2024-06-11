@@ -1,5 +1,6 @@
 package com.neuefische.team2.backend.restaurant;
 
+import com.neuefische.team2.backend.restaurant.domain.Comment;
 import com.neuefische.team2.backend.restaurant.domain.NewRestaurantDTO;
 import com.neuefische.team2.backend.exceptions.NoSuchRestaurantException;
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
@@ -125,7 +126,7 @@ class RestaurantServiceTest {
     void deleteRestaurant_whenMethodCalled_thenDeleteMethodOnRepositoryWasCalledOnlyOnce() {
         //GIVEN
         String id = "123";
-        Restaurant restaurantToDelete = new Restaurant(id, "abc", "NY");
+        Restaurant restaurantToDelete = new Restaurant(id, "abc", "NY", Collections.emptyList());
         when(mockRestaurantRepository.findById(id)).thenReturn(Optional.of(restaurantToDelete));
 
         //WHEN
@@ -133,5 +134,40 @@ class RestaurantServiceTest {
 
         //THEN
         verify(mockRestaurantRepository, times(1)).deleteById(id);
+    }
+
+    @Test
+    void addCommentToRestaurant_whenRestaurantExists_thenAddCommentAndReturnUpdatedRestaurant() {
+        //GIVEN
+        Restaurant existingRestaurant = new Restaurant("1", "The Mockingbird", "New York", Collections.emptyList());
+        Comment comment = new Comment("Great place!", System.currentTimeMillis());
+        Restaurant updatedRestaurant = new Restaurant("1", "The Mockingbird", "New York", List.of(comment));
+
+        when(mockRestaurantRepository.findById("1")).thenReturn(Optional.of(existingRestaurant));
+        when(mockRestaurantRepository.save(any(Restaurant.class))).thenReturn(updatedRestaurant);
+
+        // WHEN
+        Restaurant actual = restaurantService.addCommentToRestaurant("1", comment.text());
+
+        //THEN
+        verify(mockRestaurantRepository).findById("1");
+        verify(mockRestaurantRepository).save(any(Restaurant.class));
+        assertEquals(updatedRestaurant, actual);
+    }
+
+    @Test
+    void getCommentsForRestaurant_whenRestaurantExists_thenReturnComments() {
+        //GIVEN
+        Comment comment = new Comment("Great place!", System.currentTimeMillis());
+        Restaurant restaurant = new Restaurant("1", "The Mockingbird", "New York", List.of(comment));
+
+        when(mockRestaurantRepository.findById("1")).thenReturn(Optional.of(restaurant));
+
+        // WHEN
+        List<Comment> actual = restaurantService.getCommentsForRestaurant("1");
+
+        //THEN
+        verify(mockRestaurantRepository).findById("1");
+        assertEquals(restaurant.comments(), actual);
     }
 }

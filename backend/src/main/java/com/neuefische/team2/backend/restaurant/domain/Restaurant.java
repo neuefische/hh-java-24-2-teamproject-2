@@ -18,10 +18,6 @@ public record Restaurant(
         String city,
         List<Comment> comments
 ) {
-        public record Comment(
-                String text,
-                long createdAt
-        ) {}
 
         public Restaurant(String id, String title, String city) {
                 this(id, title, city, List.of());
