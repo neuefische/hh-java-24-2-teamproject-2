@@ -1,6 +1,6 @@
 package com.neuefische.team2.backend.auth;
 
-import com.neuefische.team2.backend.auth.domain.AuthDTO;
+import com.neuefische.team2.backend.auth.domain.GitHubUserProfile;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,10 @@ import java.util.Map;
 public class AuthController {
 
     @GetMapping("/me")
-    public AuthDTO getMe(@AuthenticationPrincipal OAuth2User user) {
+    public GitHubUserProfile getMe(@AuthenticationPrincipal OAuth2User user) {
         Map<String, Object> returnValue = user.getAttributes();
 
-        return new AuthDTO(
+        return new GitHubUserProfile(
                 returnValue.get("id").toString(),
                 returnValue.get("login").toString(),
                 returnValue.get("avatar_url").toString(),
