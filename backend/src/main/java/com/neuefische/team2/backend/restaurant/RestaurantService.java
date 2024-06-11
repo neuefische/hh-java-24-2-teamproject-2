@@ -45,13 +45,12 @@ public class RestaurantService {
 
     public Restaurant updateRestaurant(NewRestaurantDTO updatedRestaurantDTO, String id) throws ResourceNotFoundException {
         logger.info("Trying to update restaurant with ID {}", id);
-        Restaurant existingRestaurant = this.findRestaurantById(id);
         this.findRestaurantById(id);
         Restaurant updatedRestaurant = new Restaurant(
                 id,
                 updatedRestaurantDTO.title().trim(),
                 updatedRestaurantDTO.city().trim(),
-                existingRestaurant.comments()
+                this.findRestaurantById(id).comments()
         );
         Restaurant savedRestaurant = restaurantRepository.save(updatedRestaurant);
 

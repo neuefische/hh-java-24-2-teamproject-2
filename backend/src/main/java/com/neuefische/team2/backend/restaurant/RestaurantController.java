@@ -53,12 +53,10 @@ public class RestaurantController {
         restaurantService.deleteRestaurant(id);
     }
 
-
     @PostMapping("/{id}/comments")
     public Restaurant addComment(@PathVariable String id, @RequestBody NewCommentDTO comment) {
         return restaurantService.addCommentToRestaurant(id, comment.text());
     }
-
 
     @GetMapping("/{id}/comments")
     public List<Restaurant.Comment> getComments(@PathVariable String id) {

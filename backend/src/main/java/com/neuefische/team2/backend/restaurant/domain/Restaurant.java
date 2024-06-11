@@ -22,4 +22,8 @@ public record Restaurant(
                 String text,
                 long createdAt
         ) {}
+
+        public Restaurant(String id, String title, String city) {
+                this(id, title, city, List.of());
+        }
 }

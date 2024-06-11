@@ -59,7 +59,7 @@ class RestaurantServiceTest {
         Restaurant actual = restaurantService.updateRestaurant(updatedRestaurantData, "1");
 
         //THEN
-        verify(mockRestaurantRepository).findById("1");
+        verify(mockRestaurantRepository, times(2)).findById("1");
         verify(mockRestaurantRepository).save(any(Restaurant.class));
         assertEquals(updatedRestaurant, actual);
     }

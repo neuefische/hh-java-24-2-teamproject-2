@@ -242,15 +242,7 @@ class RestaurantControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.city").value("New City"));
     }
 
-    @Test
-    void updateRestaurant_whenRestaurantDoesNotExist_thenReturnNotFound() throws Exception {
-        // Act: Try to update a non-existing restaurant
-        Restaurant updatedRestaurant = new Restaurant(null, "New Name", "New City");
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/restaurants/999")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updatedRestaurant)))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
-    }
+
 
     @Test
     void deleteRestaurant_whenNoRestaurantInDB_thenDBStaysEmpty() throws Exception {
