@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import {
+  StyledCommentButton,
+  StyledCommentInput,
+  StyledCommentList,
+} from "./CommentsSection.styled.ts";
 
 type CommentsSectionProps = {
   restaurantId: string;
@@ -38,16 +43,21 @@ function CommentsSection({ restaurantId }: CommentsSectionProps) {
   return (
     <div>
       <h3>Comments</h3>
-      <input
+      <StyledCommentInput
         type="text"
         value={newComment.text}
         onChange={(e) => setNewComment({ text: e.target.value })}
         placeholder="Add a comment"
       />
-      <button onClick={handleAddComment}>Add Comment</button>
+      <StyledCommentButton onClick={handleAddComment}>
+        Add Comment
+      </StyledCommentButton>
+
       <ul>
         {comments.length > 0 ? (
-          comments.map((comment, index) => <li key={index}>{comment.text}</li>)
+          comments.map((comment, index) => (
+            <StyledCommentList key={index}>- {comment.text}</StyledCommentList>
+          ))
         ) : (
           <li>No comments available.</li>
         )}
