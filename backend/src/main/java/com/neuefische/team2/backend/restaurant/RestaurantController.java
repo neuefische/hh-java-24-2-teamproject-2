@@ -1,5 +1,6 @@
 package com.neuefische.team2.backend.restaurant;
 
+import com.neuefische.team2.backend.restaurant.domain.NewCommentDTO;
 import com.neuefische.team2.backend.restaurant.domain.NewRestaurantDTO;
 import com.neuefische.team2.backend.exceptions.ResourceNotFoundException;
 import com.neuefische.team2.backend.restaurant.domain.Restaurant;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,7 +39,7 @@ public class RestaurantController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Restaurant addRestaurant(@RequestBody @Valid NewRestaurantDTO newRestaurantDTO) {
-        Restaurant restaurant = new Restaurant(null, newRestaurantDTO.title(), newRestaurantDTO.city());
+        Restaurant restaurant = new Restaurant(null, newRestaurantDTO.title(), newRestaurantDTO.city(), new ArrayList<>());
         return restaurantService.addRestaurant(restaurant);
     }
 
@@ -49,5 +51,17 @@ public class RestaurantController {
     @DeleteMapping("{id}")
     void deleteRestaurant(@PathVariable String id) {
         restaurantService.deleteRestaurant(id);
+    }
+
+
+    @PostMapping("/{id}/comments")
+    public Restaurant addComment(@PathVariable String id, @RequestBody NewCommentDTO comment) {
+        return restaurantService.addCommentToRestaurant(id, comment.text());
+    }
+
+
+    @GetMapping("/{id}/comments")
+    public List<Restaurant.Comment> getComments(@PathVariable String id) {
+        return restaurantService.getCommentsForRestaurant(id);
     }
 }

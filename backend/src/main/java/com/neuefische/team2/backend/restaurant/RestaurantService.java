@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,12 +45,13 @@ public class RestaurantService {
 
     public Restaurant updateRestaurant(NewRestaurantDTO updatedRestaurantDTO, String id) throws ResourceNotFoundException {
         logger.info("Trying to update restaurant with ID {}", id);
-
+        Restaurant existingRestaurant = this.findRestaurantById(id);
         this.findRestaurantById(id);
         Restaurant updatedRestaurant = new Restaurant(
                 id,
                 updatedRestaurantDTO.title().trim(),
-                updatedRestaurantDTO.city().trim()
+                updatedRestaurantDTO.city().trim(),
+                existingRestaurant.comments()
         );
         Restaurant savedRestaurant = restaurantRepository.save(updatedRestaurant);
 
@@ -60,5 +62,30 @@ public class RestaurantService {
     public void deleteRestaurant(String id) {
         this.findRestaurantById(id);
         restaurantRepository.deleteById(id);
+    }
+
+    public Restaurant addCommentToRestaurant(String id, String commentText) throws ResourceNotFoundException {
+        logger.info("Trying to add comment to restaurant with ID {}", id);
+
+        Restaurant restaurant = this.findRestaurantById(id);
+        List<Restaurant.Comment> updatedComments = new ArrayList<>(restaurant.comments() != null ? restaurant.comments() : new ArrayList<>());
+        Restaurant.Comment comment = new Restaurant.Comment(commentText, System.currentTimeMillis());
+        updatedComments.add(comment);
+
+        Restaurant updatedRestaurant = new Restaurant(
+                restaurant.id(),
+                restaurant.title(),
+                restaurant.city(),
+                updatedComments
+        );
+        return restaurantRepository.save(updatedRestaurant);
+    }
+
+
+    public List<Restaurant.Comment> getCommentsForRestaurant(String id) throws ResourceNotFoundException {
+        logger.info("Trying to get comments for restaurant with ID {}", id);
+
+        Restaurant restaurant = this.findRestaurantById(id);
+        return restaurant.comments();
     }
 }

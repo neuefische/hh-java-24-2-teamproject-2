@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document("restaurants")
 public record Restaurant(
         @Id
@@ -13,6 +15,11 @@ public record Restaurant(
         String title,
 
         @NotBlank(message = "Restaurant-Stadt muss vorhanden sein.")
-        String city
+        String city,
+        List<Comment> comments
 ) {
+        public record Comment(
+                String text,
+                long createdAt
+        ) {}
 }
