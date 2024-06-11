@@ -4,8 +4,11 @@ import { UserType } from "../model/User.ts";
 import axios from "axios";
 import { logtail } from "../logger.ts";
 import Button from "../components/Button/Button.tsx";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage() {
+  const navigate = useNavigate();
+
   function login() {
     const host =
       window.location.host === "localhost:5173"
@@ -20,6 +23,7 @@ export default function ProfilePage() {
       .get("/api/auth/logout")
       .then(() => {
         logtail.info("Logged out successfully");
+        navigate("/");
       })
       .catch((error) => {
         logtail.error(error.message, {
