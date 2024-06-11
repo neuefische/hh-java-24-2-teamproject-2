@@ -1,7 +1,7 @@
 import Logo from "../Logo/Logo.tsx";
 import { StyledHeader, StyledLink } from "./Header.styled.ts";
 import ActionMenu from "../ActionMenu/ActionMenu.tsx";
-import ButtonLogin from "../ButtonLogin/ButtonLogin.tsx";
+import ProfileLink from "../ProfileLink/ProfileLink.tsx";
 
 export default function Header() {
   function login() {
@@ -15,7 +15,10 @@ export default function Header() {
 
   return (
     <StyledHeader>
-      <ButtonLogin loginToPlatform={login} />
+      <StyledLink to="/profile">
+        <ProfileLink />
+      </StyledLink>
+
       <StyledLink to="/">
         <Logo />
       </StyledLink>
