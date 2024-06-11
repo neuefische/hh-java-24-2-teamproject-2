@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { UserType } from "../model/User.ts";
 import axios from "axios";
 import { logtail } from "../logger.ts";
+import Button from "../components/Button/Button.tsx";
 
 export default function ProfilePage() {
   function login() {
@@ -33,6 +34,16 @@ export default function ProfilePage() {
   useEffect(() => {
     loadUser();
   }, []);
+
+  if (!user) {
+    return (
+      <DefaultPageTemplate pageTitle="Login">
+        <Button buttonType="default" onClick={login}>
+          Login with GitHub
+        </Button>
+      </DefaultPageTemplate>
+    );
+  }
 
   return (
     <DefaultPageTemplate pageTitle="Profile">

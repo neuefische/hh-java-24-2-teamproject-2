@@ -3,7 +3,7 @@ import { StyledButton } from "./Button.styled.ts";
 
 export type ButtonProps = {
   children: ReactNode;
-  handleOnClick: () => void;
+  onClick: () => void;
   buttonType: ButtonTypeTypes;
 };
 
@@ -11,11 +11,11 @@ export type ButtonTypeTypes = "default" | "delete";
 
 export default function Button({
   children,
-  handleOnClick,
+  onClick,
   buttonType,
 }: Readonly<ButtonProps>) {
   return (
-    <StyledButton $buttonType={buttonType} onClick={handleOnClick}>
+    <StyledButton $buttonType={buttonType} onClick={onClick}>
       {children}
     </StyledButton>
   );

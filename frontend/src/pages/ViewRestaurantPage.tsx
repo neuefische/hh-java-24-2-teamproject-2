@@ -74,7 +74,7 @@ export default function ViewRestaurantPage() {
       <ButtonLink href="/">Back</ButtonLink>
       <Button
         buttonType="delete"
-        handleOnClick={() => deleteRestaurantById(id, restaurant)}
+        onClick={() => deleteRestaurantById(id, restaurant)}
       >
         Delete
       </Button>

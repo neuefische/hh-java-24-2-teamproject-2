@@ -4,7 +4,7 @@ import Button from "./Button.tsx";
 
 test("Button component renders a button", () => {
   render(
-    <Button buttonType="delete" handleOnClick={() => {}}>
+    <Button buttonType="delete" onClick={() => {}}>
       Delete
     </Button>
   );
@@ -14,7 +14,7 @@ test("Button component renders a button", () => {
 
 test("Button component renders children as text", () => {
   render(
-    <Button buttonType="delete" handleOnClick={() => {}}>
+    <Button buttonType="delete" onClick={() => {}}>
       Delete
     </Button>
   );
