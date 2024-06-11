@@ -35,6 +35,16 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <DefaultPageTemplate pageTitle="Profile">{user?.id}</DefaultPageTemplate>
+    <DefaultPageTemplate pageTitle="Profile">
+      <img src={user?.avatar_url} alt={`Profile picture of ${user?.name}`} />
+      <table>
+        <tbody>
+          <tr>
+            <td>Name:</td>
+            <td>{user?.name}</td>
+          </tr>
+        </tbody>
+      </table>
+    </DefaultPageTemplate>
   );
 }
