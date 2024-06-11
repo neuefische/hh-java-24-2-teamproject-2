@@ -3,3 +3,8 @@ MONGODB_URI=your_db_uri
 
 # Logging Configuration
 BETTERSTACK_TOKEN=your_betterstack_token
+
+# Authentication Configuration
+APP_URL=http://localhost:5173
+GITHUB_ID=your_github_id
+GITHUB_SECRET=your_github_secret
